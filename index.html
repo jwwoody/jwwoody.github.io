@@ -281,16 +281,35 @@
 
         <h3>Senior Full Stack Software Engineer</h3>
         <p class="meta">BYU Broadcasting (BYUtv) · 2022 – present</p>
+        <h4 class="subhead">Playback and reliability</h4>
         <ul class="bullets">
+          <li>Own live and on-demand playback on Roku, iOS, tvOS, Android and Fire TV.</li>
           <li>Cut the Roku app's crash rate from 2.5% to 0.0% over a series of releases.</li>
+          <li>Fixed the bug behind 249 of 297 fatal Roku playback errors in one crash report, where an old video kept decoding behind the new one during live football.</li>
+          <li>Traced an iOS and tvOS live-channel outage to backend parameters the app silently dropped, and reworked its media requests so we avoided an emergency app-store release.</li>
+          <li>Fixed a render-thread bottleneck on Roku that left a black screen of 10+ seconds when leaving live playback. It's now instant.</li>
+          <li>Found a Roku memory leak and cut memory after eight page visits from 88 MB to 37 MB.</li>
+          <li>Run live-broadcast readiness for 5–20 live shows a week, testing all five apps on staging and handling first-line diagnostics on air.</li>
           <li>Cut data use on idle Apple TVs by 95% by changing how the home-screen previews play.</li>
-          <li>Own live and on-demand playback across five platforms: Roku, iOS, tvOS, Android and Fire TV.</li>
+        </ul>
+
+        <h4 class="subhead">Features</h4>
+        <ul class="bullets">
           <li>Took over Roku development in late 2024 and rewrote most of the app onto our shared display API.</li>
           <li>Built the client side of a server-driven UI, so editorial changes ship without an app-store release.</li>
-          <li>Found a Roku memory leak and cut memory after eight page visits from 88 MB to 37 MB.</li>
           <li>Built passkey sign-in, QR-code TV sign-in from a phone, and magic-link sign-in across our apps.</li>
           <li>Built closed-caption settings on Roku that follow the caption preferences a viewer already set on the device.</li>
+          <li>Built custom analytics events on six platforms alongside Adobe Analytics, plus A/B test exposure and conversion tracking on Roku, tvOS and iOS.</li>
+          <li>Converted the Fire TV and Android apps to a WebView wrapper, cutting duplicate client work by 40%.</li>
+          <li>Built Alexa skills for BYUradio and Classical 89, and implemented CarPlay for Classical 89.</li>
+        </ul>
+
+        <h4 class="subhead">Backend, testing and team</h4>
+        <ul class="bullets">
+          <li>Built the Categories API in our lists service with Node.js, DynamoDB and AWS CDK.</li>
           <li>Led five backend services off the Serverless Framework onto AWS CDK, guiding junior engineers through it.</li>
+          <li>Built and maintain the XCTest and Rooibos test suites for the Apple and Roku apps, with the Roku tests running on real hardware.</li>
+          <li>Found nearly 800 people with access to our video management system and cut it to 350, closing a path to unauthorized content edits.</li>
           <li>Lead mobile work on our iPhone, iPad and Apple TV apps, downloaded nearly 250,000 times last year.</li>
           <li>Manage 1–3 junior engineers. I hire them, review their code and write their training plan.</li>
         </ul>
@@ -298,14 +317,22 @@
         <h3>AI Engineer</h3>
         <p class="meta">BYU-Pathway Worldwide · 2021 – 2022</p>
         <ul class="bullets">
-          <li>Built a Python chatbot on Node.js and Azure that connected students with alumni and resources, cutting staff labor costs by 70%.</li>
-          <li>Built a transfer-credit web app covering 3,000 students' records and cut process costs by 50%.</li>
+          <li>Built a Python-powered chatbot, integrated with Node.js and Azure services, that connected students with alumni and resources and cut labor costs by 70%.</li>
+          <li>Designed and built a transfer-credit management web app and presented it to stakeholders at three colleges. It streamlined data upkeep for 3,000 students and cut process costs by 50%.</li>
+        </ul>
+
+        <h3>Sports Instructor and Official</h3>
+        <p class="meta">Provo Parks and Recreation · 2021 – 2026 · part-time, alongside engineering work</p>
+        <ul class="bullets">
+          <li>Officiated 30+ youth baseball games a season and taught soccer and basketball to kids from pre-K through age 15.</li>
+          <li>Umpired adult slow-pitch softball, officiated youth soccer, and trained other officials to referee soccer.</li>
         </ul>
 
         <h3>Software Technician</h3>
         <p class="meta">Morgan Stanley · 2020 – 2021</p>
         <ul class="bullets">
-          <li>Helped more than 100 financial-advisor staff a week with internal software, remote access and phone systems.</li>
+          <li>Advised financial advisors on internal software, helping more than 100 employees a week.</li>
+          <li>Supported Citrix remote access, RSA SecurID tokens, Thomson ONE wealth-management software and Avaya phone systems.</li>
         </ul>
       </section>
 
