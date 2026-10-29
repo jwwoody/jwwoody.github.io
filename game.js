@@ -353,15 +353,16 @@
     pitchInfo.swung = true;
     swingPose();
     const miss = Math.abs(performance.now() - pitchInfo.arrive);
-    // Timing windows in ms either side of the ball reaching the plate. About 7% tighter than
-    // the first version; the pitch mix adds the rest of the challenge.
-    if (miss > 196) return; // whiff: the ball carries on to the catcher
+    // Timing windows in ms either side of the ball reaching the plate. Tightened twice after
+    // play-testing (a 20-run first inning was too easy); the pitch mix and the center fielder
+    // add the rest of the challenge.
+    if (miss > 176) return; // whiff: the ball carries on to the catcher
     pitchInfo.done = true;
     state = 'inplay';
     const aim = currentAim();
-    if (miss <= 37) hit(4, aim);
-    else if (miss <= 79) hit(Math.random() < 0.35 ? 2 : 1, aim);
-    else if (miss <= 131) flyOut(aim);
+    if (miss <= 33) hit(4, aim);
+    else if (miss <= 71) hit(Math.random() < 0.35 ? 2 : 1, aim);
+    else if (miss <= 118) flyOut(aim);
     else groundOut(aim);
   };
 
@@ -436,10 +437,50 @@
     4: { '-1': [44, 70], 0: [186, 26], 1: [272, 46] },
   };
 
+  // ---------- the center fielder on the move ----------
+  // Once the batting side has more than 5 runs in an inning, the center fielder starts chasing
+  // balls hit his way: some singles and doubles up the middle, the odd ball in the gaps, and
+  // now and then a home run at the wall. He moves as one piece, sprite, ring and label together.
+  const cfSpot = field.querySelector('.spot-cf');
+  let cfAt = [0, 0];
+  const placeCF = ([dx, dy]) => {
+    cfAt = [dx, dy];
+    if (dx || dy) cfSpot.setAttribute('transform', `translate(${dx.toFixed(1)} ${dy.toFixed(1)})`);
+    else cfSpot.removeAttribute('transform');
+  };
+  const moveCF = (to, ms) => {
+    const from = cfAt;
+    return tween(ms, (p) => placeCF([from[0] + (to[0] - from[0]) * p, from[1] + (to[1] - from[1]) * p]));
+  };
+  const sendCFHome = () => { if (cfAt[0] || cfAt[1]) moveCF([0, 0], 500); };
+  // Chance he makes the catch, or null when he doesn't chase at all.
+  const chaseOdds = (bases, aim) => {
+    if ((runs[inning - 1] || 0) <= 5) return null;
+    if (bases === 4) return aim === 0 ? 0.2 : null;
+    if (aim === 0) return 0.55;
+    return bases === 2 ? 0.3 : null;
+  };
+
   const hit = async (bases, aim) => {
-    const [x, y] = HIT_TARGETS[bases][String(aim)];
-    const ok = await flight(x, y, bases === 4 ? 1400 : bases === 2 ? 1000 : 750, bases === 1 ? 10 : bases === 2 ? 26 : 60);
+    let [x, y] = HIT_TARGETS[bases][String(aim)];
+    const ms = bases === 4 ? 1400 : bases === 2 ? 1000 : 750;
+    let height = bases === 1 ? 10 : bases === 2 ? 26 : 60;
+    const odds = chaseOdds(bases, aim);
+    const caught = odds !== null && Math.random() < odds;
+    if (caught && bases === 4) { [x, y] = [160, 98]; height = 40; } // hauled in at the top of the wall
+    if (odds !== null) {
+      // On a home run he goes back to the wall, whether he robs it or watches it go.
+      // Otherwise he covers the whole distance when he makes the play, about 60% of it when not.
+      const full = bases === 4 ? [0, 98 - 4 - POS.cf.y] : [x - POS.cf.x, y - 4 - POS.cf.y];
+      moveCF(caught || bases === 4 ? full : [full[0] * 0.6, full[1] * 0.6], ms * 0.9);
+    }
+    const ok = await flight(x, y, ms, height);
     if (!ok) return;
+    if (caught) {
+      recordOut('cf', bases === 4 ? 'Home run robbed at the wall in' : 'Running catch in');
+      setSign(bases === 4 ? 'ROBBED!' : 'WHAT A CATCH');
+      return;
+    }
     if (bases === 4) hideBall();
     strikes = 0;
     setSign(bases === 4 ? 'HOME RUN!' : bases === 2 ? 'DOUBLE!' : 'BASE HIT!');
@@ -447,6 +488,7 @@
     await advance(bases);
     hideBall();
     renderBoard();
+    sendCFHome();
     if (bases === 4) openCard(homeRunCard(aim));
     else if (state === 'inplay') state = 'ready';
   };
@@ -534,6 +576,7 @@
       say('Three outs. Side retired. New inning.');
     }
     renderBoard();
+    sendCFHome();
     state = 'ready';
     field.focus({ preventScroll: true });
   });
@@ -550,6 +593,7 @@
     state = 'ready';
     strikes = 0; outs = 0; inning = 1; runs = [0];
     clearBases();
+    placeCF([0, 0]);
     ball.classList.remove('pitch');
     hideBall();
     sbDefault.style.display = 'none';
@@ -569,6 +613,7 @@
     state = 'off';
     held.left = held.right = false;
     clearBases();
+    placeCF([0, 0]);
     hideBall();
     showAim();
     sbGame.replaceChildren();
