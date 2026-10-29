@@ -385,9 +385,10 @@ ul.bullets li::marker { color: var(--yellow); }
 .card a { color: #1b3fb0; font-weight: 600; }
 .card a:focus-visible { outline-color: var(--card-ink); }
 
-/* Preview window: pops up over the card row on hover or keyboard focus.
-   Positioned against .cards, so it stays centered no matter which card opened it. */
-.cards { position: relative; }
+/* Preview window: pops up on hover or keyboard focus. Above the card by default;
+   beside it (over the neighbouring card) once the cards sit two to a row, so the
+   window stays on screen and never covers the card's own link. */
+.card { position: relative; }
 .preview {
   position: absolute;
   z-index: 5;
@@ -415,6 +416,14 @@ ul.bullets li::marker { color: var(--yellow); }
   border-bottom: 4px solid #0b0b0b;
 }
 .preview img { display: block; width: 100%; height: auto; }
+/* Portrait screenshot from a phone gets a phone-shaped window. */
+.preview-phone { width: min(15rem, calc(100vw - 2rem)); }
+
+@media (hover: hover) and (min-width: 48rem) {
+  .preview-right, .preview-left { top: -4px; bottom: auto; transform: none; }
+  .preview-right { left: calc(100% + 1rem); }
+  .preview-left { left: auto; right: calc(100% + 1rem); width: min(30rem, calc(50vw - 3rem)); }
+}
 
 /* No hover on touch screens, so show the screenshot inside the card instead. */
 @media (hover: none) {
@@ -428,6 +437,7 @@ ul.bullets li::marker { color: var(--yellow); }
     box-shadow: none;
   }
   .preview-bar { display: none; }
+  .preview-phone img { max-height: 20rem; object-fit: cover; object-position: top; }
 }
 
 /* ---------- Skills as a scouting report ---------- */
