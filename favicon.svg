@@ -1,4 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="JW">
-  <rect width="64" height="64" rx="12" fill="#1a4fc4"/>
-  <text x="32" y="42" text-anchor="middle" font-family="system-ui, Arial, sans-serif" font-size="28" font-weight="700" fill="#ffffff">JW</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges" role="img" aria-label="Pixel baseball">
+  <rect width="16" height="16" fill="#0d1540"/>
+  <g fill="#ffffff">
+    <rect x="5" y="2" width="6" height="12"/>
+    <rect x="3" y="3" width="10" height="10"/>
+    <rect x="2" y="5" width="12" height="6"/>
+  </g>
+  <g fill="#e8584a">
+    <rect x="4" y="4" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/>
+    <rect x="5" y="7" width="1" height="2"/><rect x="5" y="10" width="1" height="1"/>
+    <rect x="4" y="11" width="1" height="1"/>
+    <rect x="11" y="4" width="1" height="1"/><rect x="10" y="5" width="1" height="1"/>
+    <rect x="10" y="7" width="1" height="2"/><rect x="10" y="10" width="1" height="1"/>
+    <rect x="11" y="11" width="1" height="1"/>
+  </g>
 </svg>

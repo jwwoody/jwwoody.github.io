@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jeffrey Woodbury · Software Engineer</title>
   <meta name="description" content="Jeffrey Woodbury, full-stack engineer working on streaming apps for Roku, Apple TV, iOS, Android and the web, and the AWS services behind them.">
-  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#0d1540">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/PressStart2P-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,9 +15,10 @@
 
   <header class="site">
     <div class="wrap">
-      <a class="name" href="./">Jeffrey Woodbury</a>
+      <a class="name" href="./">J. WOODBURY</a>
       <nav aria-label="Primary">
         <ul>
+          <li><a href="#about">About</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#skills">Skills</a></li>
@@ -26,115 +28,341 @@
     </div>
   </header>
 
-  <main id="main" class="wrap" tabindex="-1">
-    <section aria-labelledby="intro-heading">
-      <h1 id="intro-heading">Jeffrey Woodbury</h1>
-      <p class="meta">Senior Full Stack Software Engineer · Washington State</p>
-      <p class="lede">I build streaming video apps and the services behind them. Day to day I work on Roku, Apple TV, iPhone, iPad, Android and the web, plus the Node.js and AWS backend they run on.</p>
-      <p>Most of my work is live playback. I keep it working for a 24/7 channel that peaks above 170,000 concurrent viewers, and I'm usually the first one looking at the dashboards when something breaks on air. I also manage a small team of junior engineers.</p>
-      <ul class="links" aria-label="Profiles">
-        <li><a href="https://www.linkedin.com/in/jeffrey-woodbury/">LinkedIn</a></li>
-        <li><a href="https://github.com/jwwoody">GitHub</a></li>
-        <li><a href="mailto:jeffrey.w.woodbury@gmail.com">Email</a></li>
-      </ul>
+  <main id="main" tabindex="-1">
+    <section class="ballpark wrap" aria-labelledby="name-heading">
+      <div class="marquee">
+        <h1 id="name-heading">JEFFREY WOODBURY</h1>
+        <p>SENIOR FULL STACK SOFTWARE ENGINEER</p>
+      </div>
+
+      <div class="park-grid">
+        <!-- The field is a mouse/touch shortcut to the same places as the lineup card,
+             so it is hidden from assistive tech and kept out of the tab order. -->
+        <div class="field">
+          <svg viewBox="0 0 320 248" aria-hidden="true" focusable="false" shape-rendering="crispEdges" font-family="'Press Start 2P', ui-monospace, monospace">
+            <defs>
+              <pattern id="crowd" width="6" height="6" patternUnits="userSpaceOnUse">
+                <rect width="6" height="6" fill="#7d8a5c"/>
+                <rect x="0" y="0" width="2" height="2" fill="#f2e6a0"/>
+                <rect x="3" y="1" width="2" height="2" fill="#ffffff"/>
+                <rect x="1" y="3" width="2" height="2" fill="#c9cfa8"/>
+                <rect x="4" y="4" width="2" height="2" fill="#e8584a"/>
+              </pattern>
+              <symbol id="fielder" viewBox="0 0 10 16">
+                <rect x="3" y="0" width="4" height="2" fill="#1f2fa8"/>
+                <rect x="2" y="2" width="7" height="1" fill="#1f2fa8"/>
+                <rect x="3" y="3" width="4" height="3" fill="#f0b890"/>
+                <rect x="2" y="6" width="6" height="4" fill="#e6f4fd"/>
+                <rect x="0" y="7" width="2" height="3" fill="#e6f4fd"/>
+                <rect x="8" y="7" width="2" height="3" fill="#8b4a1f"/>
+                <rect x="2" y="10" width="6" height="1" fill="#1f2fa8"/>
+                <rect x="2" y="11" width="6" height="3" fill="#a8d8f8"/>
+                <rect x="2" y="14" width="2" height="2" fill="#0b0b0b"/>
+                <rect x="6" y="14" width="2" height="2" fill="#0b0b0b"/>
+              </symbol>
+              <symbol id="batter" viewBox="0 0 12 18">
+                <rect x="9" y="0" width="2" height="8" fill="#e0a85e"/>
+                <rect x="3" y="2" width="5" height="3" fill="#2a2f45"/>
+                <rect x="4" y="5" width="4" height="3" fill="#f0b890"/>
+                <rect x="2" y="8" width="7" height="4" fill="#ffd23f"/>
+                <rect x="8" y="7" width="2" height="2" fill="#f0b890"/>
+                <rect x="2" y="12" width="7" height="1" fill="#2a2f45"/>
+                <rect x="2" y="13" width="7" height="3" fill="#2a2f45"/>
+                <rect x="1" y="16" width="3" height="2" fill="#0b0b0b"/>
+                <rect x="7" y="16" width="3" height="2" fill="#0b0b0b"/>
+              </symbol>
+              <symbol id="catcher" viewBox="0 0 10 10">
+                <rect x="3" y="0" width="4" height="3" fill="#2a2f45"/>
+                <rect x="2" y="3" width="6" height="4" fill="#e6f4fd"/>
+                <rect x="0" y="4" width="2" height="2" fill="#8b4a1f"/>
+                <rect x="1" y="7" width="8" height="2" fill="#a8d8f8"/>
+                <rect x="1" y="9" width="3" height="1" fill="#0b0b0b"/>
+                <rect x="6" y="9" width="3" height="1" fill="#0b0b0b"/>
+              </symbol>
+              <symbol id="ump" viewBox="0 0 10 16">
+                <rect x="3" y="0" width="4" height="2" fill="#0b0b0b"/>
+                <rect x="3" y="2" width="4" height="3" fill="#f0b890"/>
+                <rect x="2" y="5" width="6" height="5" fill="#0b0b0b"/>
+                <rect x="3" y="6" width="4" height="3" fill="#6a6f85"/>
+                <rect x="2" y="10" width="6" height="4" fill="#4a4f62"/>
+                <rect x="2" y="14" width="2" height="2" fill="#0b0b0b"/>
+                <rect x="6" y="14" width="2" height="2" fill="#0b0b0b"/>
+              </symbol>
+            </defs>
+
+            <!-- Sky, stands, flags -->
+            <rect width="320" height="34" fill="#78c6f6"/>
+            <rect y="34" width="320" height="54" fill="url(#crowd)"/>
+            <g fill="#ffd23f">
+              <rect x="30" y="20" width="1" height="14" fill="#ffffff"/><polygon points="31,20 39,23 31,26"/>
+              <rect x="52" y="20" width="1" height="14" fill="#ffffff"/><polygon points="53,20 61,23 53,26"/>
+              <rect x="74" y="20" width="1" height="14" fill="#ffffff"/><polygon points="75,20 83,23 75,26"/>
+              <rect x="240" y="20" width="1" height="14" fill="#ffffff"/><polygon points="241,20 249,23 241,26"/>
+              <rect x="262" y="20" width="1" height="14" fill="#ffffff"/><polygon points="263,20 271,23 263,26"/>
+              <rect x="284" y="20" width="1" height="14" fill="#ffffff"/><polygon points="285,20 293,23 285,26"/>
+            </g>
+
+            <!-- Scoreboard -->
+            <rect x="98" y="2" width="124" height="70" fill="#0b0b0b"/>
+            <rect x="100" y="4" width="120" height="66" fill="none" stroke="#ffffff" stroke-width="1"/>
+            <text x="160" y="15" font-size="6" fill="#ffd23f" text-anchor="middle">1 2 3 4 5 6 7 8 9  R</text>
+            <rect x="104" y="18" width="112" height="1" fill="#ffffff"/>
+            <text x="106" y="27" font-size="6" fill="#ffffff">V</text>
+            <text x="106" y="36" font-size="6" fill="#ffffff">H</text>
+            <text x="209" y="27" font-size="6" fill="#ffffff">0</text>
+            <text x="209" y="36" font-size="6" fill="#ffffff">0</text>
+            <rect x="104" y="42" width="112" height="22" fill="#1f2fa8" stroke="#ffffff" stroke-width="1"/>
+            <text x="160" y="57" font-size="9" fill="#ffd23f" text-anchor="middle">PLAY BALL</text>
+
+            <!-- Outfield wall and grass -->
+            <rect y="88" width="320" height="2" fill="#ffd23f"/>
+            <rect y="90" width="320" height="8" fill="#1f2fa8"/>
+            <rect y="98" width="320" height="150" fill="#2f9e44"/>
+            <g fill="#2a9140">
+              <rect y="110" width="320" height="12"/>
+              <rect y="134" width="320" height="12"/>
+              <rect y="158" width="320" height="12"/>
+              <rect y="182" width="320" height="12"/>
+              <rect y="206" width="320" height="12"/>
+              <rect y="230" width="320" height="12"/>
+            </g>
+
+            <!-- Foul poles and lines -->
+            <rect x="9" y="30" width="2" height="88" fill="#ffd23f"/>
+            <rect x="309" y="30" width="2" height="88" fill="#ffd23f"/>
+            <g stroke="#ffffff" stroke-width="1.5" shape-rendering="auto">
+              <line x1="160" y1="212" x2="8" y2="115"/>
+              <line x1="160" y1="212" x2="312" y2="115"/>
+              <polyline points="226,170 160,128 94,170" fill="none"/>
+            </g>
+
+            <!-- Dirt -->
+            <g fill="#c8743a" shape-rendering="auto">
+              <ellipse cx="160" cy="212" rx="22" ry="12"/>
+              <ellipse cx="226" cy="170" rx="11" ry="7"/>
+              <ellipse cx="160" cy="128" rx="11" ry="7"/>
+              <ellipse cx="94" cy="170" rx="11" ry="7"/>
+              <ellipse cx="160" cy="176" rx="11" ry="6"/>
+            </g>
+            <rect x="157" y="174" width="6" height="2" fill="#ffffff"/>
+            <g fill="#ffffff">
+              <polygon points="226,166 231,170 226,174 221,170"/>
+              <polygon points="160,124 165,128 160,132 155,128"/>
+              <polygon points="94,166 99,170 94,174 89,170"/>
+              <polygon points="156,210 164,210 164,213 160,216 156,213"/>
+            </g>
+
+            <!-- Decorative fielders (shortstop and second baseman) -->
+            <use href="#fielder" x="118" y="132" width="10" height="16"/>
+            <use href="#fielder" x="192" y="132" width="10" height="16"/>
+            <use href="#catcher" x="155" y="218" width="10" height="10"/>
+
+            <!-- The pitch -->
+            <rect class="pitch" x="159" y="168" width="2" height="2" fill="#ffffff"/>
+
+            <!-- Clickable spots -->
+            <a class="spot spot-cf" href="https://github.com/jwwoody" tabindex="-1">
+              <rect x="150" y="98" width="46" height="22" fill="#000" fill-opacity="0"/>
+              <rect class="ring" x="152.5" y="99.5" width="15" height="19" fill="none" stroke="#ffd23f" stroke-width="2"/>
+              <use href="#fielder" x="155" y="101" width="10" height="16"/>
+              <rect class="tag-bg" x="170" y="103" width="22" height="11"/>
+              <text class="tag-text" x="181" y="112" font-size="7" text-anchor="middle">CF</text>
+            </a>
+            <a class="spot spot-lf" href="https://www.linkedin.com/in/jeffrey-woodbury/" tabindex="-1">
+              <rect x="40" y="104" width="46" height="22" fill="#000" fill-opacity="0"/>
+              <rect class="ring" x="42.5" y="105.5" width="15" height="19" fill="none" stroke="#ffd23f" stroke-width="2"/>
+              <use href="#fielder" x="45" y="107" width="10" height="16"/>
+              <rect class="tag-bg" x="60" y="109" width="22" height="11"/>
+              <text class="tag-text" x="71" y="118" font-size="7" text-anchor="middle">LF</text>
+            </a>
+            <a class="spot spot-rf" href="mailto:jeffrey.w.woodbury@gmail.com" tabindex="-1">
+              <rect x="258" y="104" width="46" height="22" fill="#000" fill-opacity="0"/>
+              <rect class="ring" x="260.5" y="105.5" width="15" height="19" fill="none" stroke="#ffd23f" stroke-width="2"/>
+              <use href="#fielder" x="263" y="107" width="10" height="16"/>
+              <rect class="tag-bg" x="278" y="109" width="22" height="11"/>
+              <text class="tag-text" x="289" y="118" font-size="7" text-anchor="middle">RF</text>
+            </a>
+            <a class="spot spot-2b" href="#projects" tabindex="-1">
+              <rect x="124" y="118" width="46" height="20" fill="#000" fill-opacity="0"/>
+              <rect class="ring" x="148.5" y="118.5" width="23" height="19" fill="none" stroke="#ffd23f" stroke-width="2"/>
+              <rect class="tag-bg" x="124" y="122" width="22" height="11"/>
+              <text class="tag-text" x="135" y="131" font-size="7" text-anchor="middle">2B</text>
+            </a>
+            <a class="spot spot-1b" href="#experience" tabindex="-1">
+              <rect x="212" y="146" width="34" height="46" fill="#000" fill-opacity="0"/>
+              <rect class="ring" x="213.5" y="147.5" width="27" height="29" fill="none" stroke="#ffd23f" stroke-width="2"/>
+              <use href="#fielder" x="230" y="150" width="10" height="16"/>
+              <rect class="tag-bg" x="215" y="179" width="22" height="11"/>
+              <text class="tag-text" x="226" y="188" font-size="7" text-anchor="middle">1B</text>
+            </a>
+            <a class="spot spot-3b" href="#skills" tabindex="-1">
+              <rect x="74" y="146" width="34" height="46" fill="#000" fill-opacity="0"/>
+              <rect class="ring" x="79.5" y="147.5" width="27" height="29" fill="none" stroke="#ffd23f" stroke-width="2"/>
+              <use href="#fielder" x="80" y="150" width="10" height="16"/>
+              <rect class="tag-bg" x="83" y="179" width="22" height="11"/>
+              <text class="tag-text" x="94" y="188" font-size="7" text-anchor="middle">3B</text>
+            </a>
+            <a class="spot spot-p" href="#contact" tabindex="-1">
+              <rect x="150" y="154" width="38" height="24" fill="#000" fill-opacity="0"/>
+              <rect class="ring" x="152.5" y="155.5" width="15" height="19" fill="none" stroke="#ffd23f" stroke-width="2"/>
+              <use href="#fielder" x="155" y="157" width="10" height="16"/>
+              <rect class="tag-bg" x="170" y="160" width="15" height="11"/>
+              <text class="tag-text" x="178" y="169" font-size="7" text-anchor="middle">P</text>
+            </a>
+            <a class="spot spot-home" href="#about" tabindex="-1">
+              <rect x="88" y="190" width="70" height="24" fill="#000" fill-opacity="0"/>
+              <rect class="ring" x="140.5" y="191.5" width="16" height="22" fill="none" stroke="#ffd23f" stroke-width="2"/>
+              <use href="#batter" x="143" y="194" width="12" height="18"/>
+              <rect class="tag-bg" x="88" y="197" width="50" height="11"/>
+              <text class="tag-text" x="113" y="206" font-size="7" text-anchor="middle">AT BAT</text>
+            </a>
+            <a class="spot spot-ump" href="policies.html" tabindex="-1">
+              <rect x="152" y="228" width="50" height="20" fill="#000" fill-opacity="0"/>
+              <rect class="ring" x="152.5" y="228.5" width="15" height="19" fill="none" stroke="#ffd23f" stroke-width="2"/>
+              <use href="#ump" x="155" y="230" width="10" height="16"/>
+              <rect class="tag-bg" x="170" y="233" width="29" height="11"/>
+              <text class="tag-text" x="184.5" y="242" font-size="7" text-anchor="middle">UMP</text>
+            </a>
+          </svg>
+        </div>
+
+        <nav class="lineup" aria-labelledby="lineup-heading">
+          <h2 id="lineup-heading">TODAY'S LINEUP</h2>
+          <ol>
+            <li><a href="#about" data-pos="home"><span class="pos">HOME</span><span class="what">About me<small>Now batting</small></span></a></li>
+            <li><a href="#experience" data-pos="1b"><span class="pos">1B</span><span class="what">Experience<small>Where I've played</small></span></a></li>
+            <li><a href="#projects" data-pos="2b"><span class="pos">2B</span><span class="what">Projects<small>Things I built on my own</small></span></a></li>
+            <li><a href="#skills" data-pos="3b"><span class="pos">3B</span><span class="what">Skills<small>Scouting report</small></span></a></li>
+            <li><a href="#contact" data-pos="p"><span class="pos">P</span><span class="what">Contact<small>Pitch me a role</small></span></a></li>
+            <li><a href="https://www.linkedin.com/in/jeffrey-woodbury/" data-pos="lf"><span class="pos">LF</span><span class="what">LinkedIn<small>Opens linkedin.com</small></span></a></li>
+            <li><a href="https://github.com/jwwoody" data-pos="cf"><span class="pos">CF</span><span class="what">GitHub<small>Opens github.com</small></span></a></li>
+            <li><a href="mailto:jeffrey.w.woodbury@gmail.com" data-pos="rf"><span class="pos">RF</span><span class="what">Email<small>Opens your email app</small></span></a></li>
+            <li><a href="policies.html" data-pos="ump"><span class="pos">UMP</span><span class="what">Site rules<small>Privacy, cookies and terms</small></span></a></li>
+          </ol>
+        </nav>
+      </div>
     </section>
 
-    <section id="experience" aria-labelledby="experience-heading">
-      <h2 id="experience-heading">Experience</h2>
+    <div class="wrap narrow">
+      <section id="about" class="panel" aria-labelledby="about-heading">
+        <h2 id="about-heading"><span class="base" aria-hidden="true"><b>AB</b></span>NOW BATTING</h2>
+        <p class="lede">I build streaming video apps and the services behind them. Day to day I work on Roku, Apple TV, iPhone, iPad, Android and the web, plus the Node.js and AWS backend they run on.</p>
+        <p>Most of my work is live playback. I keep it working for a 24/7 channel that peaks above 170,000 concurrent viewers, and I'm usually the first one looking at the dashboards when something breaks on air. I also manage a small team of junior engineers.</p>
+        <ul class="links" aria-label="Profiles">
+          <li><a class="button" href="https://www.linkedin.com/in/jeffrey-woodbury/">LINKEDIN</a></li>
+          <li><a class="button" href="https://github.com/jwwoody">GITHUB</a></li>
+          <li><a class="button" href="mailto:jeffrey.w.woodbury@gmail.com">EMAIL</a></li>
+        </ul>
+      </section>
 
-      <h3>Senior Full Stack Software Engineer</h3>
-      <p class="meta">National TV, radio and streaming network · 2022 – present</p>
-      <ul class="bullets">
-        <li>Cut the Roku app's crash rate from 2.5% to 0.0% over a series of releases.</li>
-        <li>Cut data use on idle Apple TVs by 95% by changing how the home-screen previews play.</li>
-        <li>Own live and on-demand playback across five platforms: Roku, iOS, tvOS, Android and Fire TV.</li>
-        <li>Took over Roku development in late 2024 and rewrote most of the app onto our shared display API.</li>
-        <li>Built the client side of a server-driven UI, so editorial changes ship without an app-store release.</li>
-        <li>Found a Roku memory leak and cut memory after eight page visits from 88 MB to 37 MB.</li>
-        <li>Built passkey sign-in, QR-code TV sign-in from a phone, and magic-link sign-in across our apps.</li>
-        <li>Built closed-caption settings on Roku that follow the caption preferences a viewer already set on the device.</li>
-        <li>Led five backend services off the Serverless Framework onto AWS CDK, guiding junior engineers through it.</li>
-        <li>Lead mobile work on our iPhone, iPad and Apple TV apps, downloaded nearly 250,000 times last year.</li>
-        <li>Manage 1–3 junior engineers. I hire them, review their code and write their training plan.</li>
-      </ul>
+      <section id="experience" class="panel" aria-labelledby="experience-heading">
+        <h2 id="experience-heading"><span class="base" aria-hidden="true"><b>1B</b></span>EXPERIENCE</h2>
 
-      <h3>AI Engineer</h3>
-      <p class="meta">Online higher-education nonprofit · 2021 – 2022</p>
-      <ul class="bullets">
-        <li>Built a Python chatbot on Node.js and Azure that connected students with alumni and resources, cutting staff labor costs by 70%.</li>
-        <li>Built a transfer-credit web app covering 3,000 students' records and cut process costs by 50%.</li>
-      </ul>
+        <h3>Senior Full Stack Software Engineer</h3>
+        <p class="meta">National TV, radio and streaming network · 2022 – present</p>
+        <ul class="bullets">
+          <li>Cut the Roku app's crash rate from 2.5% to 0.0% over a series of releases.</li>
+          <li>Cut data use on idle Apple TVs by 95% by changing how the home-screen previews play.</li>
+          <li>Own live and on-demand playback across five platforms: Roku, iOS, tvOS, Android and Fire TV.</li>
+          <li>Took over Roku development in late 2024 and rewrote most of the app onto our shared display API.</li>
+          <li>Built the client side of a server-driven UI, so editorial changes ship without an app-store release.</li>
+          <li>Found a Roku memory leak and cut memory after eight page visits from 88 MB to 37 MB.</li>
+          <li>Built passkey sign-in, QR-code TV sign-in from a phone, and magic-link sign-in across our apps.</li>
+          <li>Built closed-caption settings on Roku that follow the caption preferences a viewer already set on the device.</li>
+          <li>Led five backend services off the Serverless Framework onto AWS CDK, guiding junior engineers through it.</li>
+          <li>Lead mobile work on our iPhone, iPad and Apple TV apps, downloaded nearly 250,000 times last year.</li>
+          <li>Manage 1–3 junior engineers. I hire them, review their code and write their training plan.</li>
+        </ul>
 
-      <h3>Software Technician</h3>
-      <p class="meta">Morgan Stanley · 2020 – 2021</p>
-      <ul class="bullets">
-        <li>Helped more than 100 financial-advisor staff a week with internal software, remote access and phone systems.</li>
-      </ul>
+        <h3>AI Engineer</h3>
+        <p class="meta">Online higher-education nonprofit · 2021 – 2022</p>
+        <ul class="bullets">
+          <li>Built a Python chatbot on Node.js and Azure that connected students with alumni and resources, cutting staff labor costs by 70%.</li>
+          <li>Built a transfer-credit web app covering 3,000 students' records and cut process costs by 50%.</li>
+        </ul>
 
-      <h3>Education and certifications</h3>
-      <ul class="bullets">
-        <li>B.S. Computer Science, minor in Mathematics, 2020</li>
-        <li>AWS Certified Solutions Architect – Associate</li>
-        <li>AWS Certified Cloud Practitioner</li>
-        <li>Stanford CS193p, Developing Apps for iOS (SwiftUI), completed 2025</li>
-      </ul>
-    </section>
+        <h3>Software Technician</h3>
+        <p class="meta">Morgan Stanley · 2020 – 2021</p>
+        <ul class="bullets">
+          <li>Helped more than 100 financial-advisor staff a week with internal software, remote access and phone systems.</li>
+        </ul>
 
-    <section id="projects" aria-labelledby="projects-heading">
-      <h2 id="projects-heading">Projects</h2>
+        <h3>Education and certifications</h3>
+        <ul class="bullets">
+          <li>B.S. Computer Science, minor in Mathematics, 2020</li>
+          <li>AWS Certified Solutions Architect – Associate</li>
+          <li>AWS Certified Cloud Practitioner</li>
+          <li>Stanford CS193p, Developing Apps for iOS (SwiftUI), completed 2025</li>
+        </ul>
+      </section>
 
-      <article class="project" aria-labelledby="p-hoop">
-        <h3 id="p-hoop">HoopScoreboard</h3>
-        <p class="meta">React · TypeScript · Cloudflare · 2025 – present</p>
-        <p>A free web app I built to track live basketball stats, especially plus-minus, along with scoring, box scores, shooting and substitutions. It works on a phone and as a stream overlay in OBS or Streamlabs. About 1,200 visits a month.</p>
-        <p><a href="https://hoopscoreboard.com/">hoopscoreboard.com</a></p>
-      </article>
+      <section id="projects" class="panel" aria-labelledby="projects-heading">
+        <h2 id="projects-heading"><span class="base" aria-hidden="true"><b>2B</b></span>PROJECTS</h2>
+        <div class="cards">
+          <article class="card" aria-labelledby="p-hoop">
+            <h3 id="p-hoop">HOOPSCOREBOARD</h3>
+            <dl class="stats">
+              <dt>STACK</dt><dd>React, TypeScript, Cloudflare</dd>
+              <dt>SINCE</dt><dd>2025</dd>
+              <dt>VISITS</dt><dd>About 1,200 a month</dd>
+            </dl>
+            <p>A free web app I built to track live basketball stats, especially plus-minus, along with scoring, box scores, shooting and substitutions. It works on a phone and as a stream overlay in OBS or Streamlabs.</p>
+            <p class="card-link"><a href="https://hoopscoreboard.com/">hoopscoreboard.com</a></p>
+          </article>
 
-      <article class="project" aria-labelledby="p-dat">
-        <h3 id="p-dat">DAT Angle Ranking</h3>
-        <p class="meta">Python · Flask · matplotlib · 2021 – present</p>
-        <p>A practice tool for students preparing for the Dental Admission Test. It generates angle-ranking problems from your settings. About 1,000 visits a month.</p>
-        <p><a href="https://github.com/jwwoody/DAT-Angle-Ranking">Source on GitHub</a></p>
-      </article>
+          <article class="card" aria-labelledby="p-dat">
+            <h3 id="p-dat">DAT ANGLE RANKING</h3>
+            <dl class="stats">
+              <dt>STACK</dt><dd>Python, Flask, matplotlib</dd>
+              <dt>SINCE</dt><dd>2021</dd>
+              <dt>VISITS</dt><dd>About 1,000 a month</dd>
+            </dl>
+            <p>A practice tool for students preparing for the Dental Admission Test. It generates angle-ranking problems from your settings.</p>
+            <p class="card-link"><a href="https://github.com/jwwoody/DAT-Angle-Ranking">Source on GitHub</a></p>
+          </article>
 
-      <article class="project" aria-labelledby="p-wyr">
-        <h3 id="p-wyr">Would You Rather</h3>
-        <p class="meta">Vue · TypeScript · AWS Lambda · 2023</p>
-        <p>An experiment that pairs "would you rather" prompts with generated images, built to wire an image-generation API into a serverless AWS backend.</p>
-        <p><a href="https://github.com/jwwoody/would-you-rather">Source on GitHub</a></p>
-      </article>
-    </section>
+          <article class="card" aria-labelledby="p-wyr">
+            <h3 id="p-wyr">WOULD YOU RATHER</h3>
+            <dl class="stats">
+              <dt>STACK</dt><dd>Vue, TypeScript, AWS Lambda</dd>
+              <dt>YEAR</dt><dd>2023</dd>
+            </dl>
+            <p>An experiment that pairs "would you rather" prompts with generated images, built to wire an image-generation API into a serverless AWS backend.</p>
+            <p class="card-link"><a href="https://github.com/jwwoody/would-you-rather">Source on GitHub</a></p>
+          </article>
+        </div>
+      </section>
 
-    <section id="skills" aria-labelledby="skills-heading">
-      <h2 id="skills-heading">Skills</h2>
-      <dl class="skills">
-        <dt>Languages</dt>
-        <dd>Kotlin, Java, Swift, TypeScript, JavaScript, Python, BrightScript, C++</dd>
-        <dt>Streaming and TV</dt>
-        <dd>Live and on-demand video players, AVPlayer, Shaka Player, Roku SceneGraph, closed captions (CEA-608, WebVTT)</dd>
-        <dt>Apple</dt>
-        <dd>SwiftUI, UIKit, AVFoundation, iOS, tvOS, CarPlay, XCTest, Instruments</dd>
-        <dt>Android</dt>
-        <dd>Android and Android TV, Google Cast, Hilt, Retrofit, coroutines, JUnit, Espresso</dd>
-        <dt>Web</dt>
-        <dd>Vue 3, Nuxt, Pinia, React, Vitest, Cypress</dd>
-        <dt>Cloud and backend</dt>
-        <dd>AWS, AWS CDK, Node.js, Express, DynamoDB, REST APIs, Docker, GitHub Actions</dd>
-        <dt>Testing</dt>
-        <dd>XCTest, Rooibos, JUnit, Espresso, MockK, Jest</dd>
-      </dl>
-    </section>
+      <section id="skills" class="panel" aria-labelledby="skills-heading">
+        <h2 id="skills-heading"><span class="base" aria-hidden="true"><b>3B</b></span>SKILLS</h2>
+        <p class="meta">Scouting report</p>
+        <table class="scouting">
+          <tbody>
+            <tr><th scope="row">LANGUAGES</th><td>Kotlin, Java, Swift, TypeScript, JavaScript, Python, BrightScript, C++</td></tr>
+            <tr><th scope="row">STREAMING AND TV</th><td>Live and on-demand video players, AVPlayer, Shaka Player, Roku SceneGraph, closed captions (CEA-608, WebVTT)</td></tr>
+            <tr><th scope="row">APPLE</th><td>SwiftUI, UIKit, AVFoundation, iOS, tvOS, CarPlay, XCTest, Instruments</td></tr>
+            <tr><th scope="row">ANDROID</th><td>Android and Android TV, Google Cast, Hilt, Retrofit, coroutines, JUnit, Espresso</td></tr>
+            <tr><th scope="row">WEB</th><td>Vue 3, Nuxt, Pinia, React, Vitest, Cypress</td></tr>
+            <tr><th scope="row">CLOUD AND BACKEND</th><td>AWS, AWS CDK, Node.js, Express, DynamoDB, REST APIs, Docker, GitHub Actions</td></tr>
+            <tr><th scope="row">TESTING</th><td>XCTest, Rooibos, JUnit, Espresso, MockK, Jest</td></tr>
+          </tbody>
+        </table>
+      </section>
 
-    <section id="contact" aria-labelledby="contact-heading">
-      <h2 id="contact-heading">Contact</h2>
-      <p>The best way to reach me is by email at <a href="mailto:jeffrey.w.woodbury@gmail.com">jeffrey.w.woodbury@gmail.com</a>, or on <a href="https://www.linkedin.com/in/jeffrey-woodbury/">LinkedIn</a>.</p>
-    </section>
+      <section id="contact" class="panel" aria-labelledby="contact-heading">
+        <h2 id="contact-heading"><span class="base" aria-hidden="true"><b>P</b></span>PITCH ME</h2>
+        <p>Have a role in mind? Email is the best way to reach me, or find me on <a href="https://www.linkedin.com/in/jeffrey-woodbury/">LinkedIn</a>.</p>
+        <p><a class="button" href="mailto:jeffrey.w.woodbury@gmail.com">EMAIL JEFFREY</a></p>
+        <p class="meta">jeffrey.w.woodbury@gmail.com</p>
+      </section>
+    </div>
   </main>
 
   <footer class="site">
-    <div class="wrap">
+    <div class="wrap narrow">
       <p>© 2026 Jeffrey Woodbury. This is a personal site. It sells nothing, sets no cookies and runs no tracking.</p>
-      <p><a href="policies.html">Privacy, cookies, terms and accessibility</a></p>
+      <p><a href="policies.html"><span class="pixel">UMP</span> Official rules: privacy, cookies, terms and accessibility</a></p>
+      <p>Pixel font: Press Start 2P (SIL Open Font License). The ballpark art was drawn for this site.</p>
     </div>
   </footer>
 </body>
