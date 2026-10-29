@@ -38,7 +38,7 @@
   const POS = {
     c: { x: 160, y: 223 }, p: { x: 160, y: 165 },
     '1b': { x: 235, y: 158 }, '2b': { x: 197, y: 140 }, ss: { x: 123, y: 140 }, '3b': { x: 85, y: 158 },
-    lf: { x: 50, y: 115 }, cf: { x: 160, y: 109 }, rf: { x: 268, y: 115 },
+    lf: { x: 65, y: 120 }, cf: { x: 160, y: 109 }, rf: { x: 255, y: 120 },
   };
   const CARDS = {
     c: {
@@ -97,13 +97,68 @@
       body: '<p>The right fielder hauls it in. The quickest way to reach me is email.</p>',
       link: [`mailto:${EMAIL}`, 'EMAIL ME'],
     },
-    hr: {
-      label: 'HIGHLIGHTS', title: 'HOME RUN!',
-      body: '<ul class="bullets"><li>Cut the Roku app\'s crash rate from 2.5% to 0.0%.</li>'
-        + '<li>Cut data use on idle Apple TVs by 95%.</li>'
-        + '<li>Keep live playback working for a channel that peaks above 170,000 concurrent viewers.</li></ul>',
-      link: ['#experience', 'SEE EXPERIENCE'],
+  };
+
+  // Home runs rotate through these, shuffled, so nobody sees a repeat until they've seen them all.
+  const HIGHLIGHTS = [
+    {
+      label: 'HIGHLIGHTS · RELIABILITY',
+      items: ['Cut the Roku app\'s crash rate from 2.5% to 0.0%.',
+        'Cut data use on idle Apple TVs by 95%.',
+        'Keep live playback working for BYUtv\'s 24/7 channel, which peaks above 170,000 concurrent viewers.'],
     },
+    {
+      label: 'HIGHLIGHTS · BUG HUNTS',
+      items: ['Fixed the bug behind 249 of 297 fatal Roku playback errors in one crash report.',
+        'Found a Roku memory leak and cut memory after eight page visits from 88 MB to 37 MB.',
+        'Turned a 10+ second black screen when leaving live playback into an instant transition.'],
+    },
+    {
+      label: 'HIGHLIGHTS · SCALE',
+      items: ['Work on a platform with 96 million video starts and 25 million hours watched a year.',
+        'More than 18 million hours streamed on Roku in the past year.',
+        'Our iPhone, iPad and Apple TV apps were downloaded nearly 250,000 times last year.'],
+    },
+    {
+      label: 'HIGHLIGHTS · FEATURES',
+      items: ['Built the client side of a server-driven UI, so editorial changes ship without an app-store release.',
+        'Built passkey sign-in, QR-code TV sign-in from a phone, and magic-link sign-in.',
+        'Built Roku caption settings that follow the preferences a viewer already set on the device.'],
+    },
+    {
+      label: 'HIGHLIGHTS · TEAM',
+      items: ['Manage 1–3 junior engineers. I hire them, review their code and write their training plan.',
+        'Led five backend services off the Serverless Framework onto AWS CDK.',
+        'Found nearly 800 people with access to our video management system and cut it to 350.'],
+    },
+    {
+      label: 'HIGHLIGHTS · EVERY PLATFORM',
+      items: ['Converted the Fire TV and Android apps to a WebView wrapper, cutting duplicate client work by 40%.',
+        'Built custom analytics events on six platforms alongside Adobe Analytics.',
+        'Built Alexa skills for BYUradio and Classical 89.'],
+    },
+  ];
+  const HR_TITLES = ['HOME RUN!', 'GONE!', 'OUT OF THE PARK!', "TOUCH 'EM ALL!"];
+  let highlightQueue = [];
+  const nextHighlight = () => {
+    if (!highlightQueue.length) {
+      highlightQueue = HIGHLIGHTS.map((_, i) => i);
+      for (let i = highlightQueue.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [highlightQueue[i], highlightQueue[j]] = [highlightQueue[j], highlightQueue[i]];
+      }
+    }
+    return HIGHLIGHTS[highlightQueue.pop()];
+  };
+  const homeRunCard = (aim) => {
+    const h = nextHighlight();
+    // Right field at this park ends at a brick warehouse.
+    const title = aim > 0 ? 'OFF THE WAREHOUSE!' : HR_TITLES[Math.floor(Math.random() * HR_TITLES.length)];
+    return {
+      label: h.label, title,
+      body: `<ul class="bullets">${h.items.map((t) => `<li>${t}</li>`).join('')}</ul>`,
+      link: ['#experience', 'SEE EXPERIENCE'],
+    };
   };
   const NAMES = {
     c: 'the catcher', p: 'the pitcher', '1b': 'first base', '2b': 'second base', ss: 'shortstop',
@@ -155,11 +210,12 @@
   const hideBall = () => { ball.style.opacity = '0'; shadow.setAttribute('visibility', 'hidden'); };
 
   // ---------- scoreboard ----------
-  const addText = (x, y, text, fill) => {
+  const addText = (x, y, text, fill, attrs = {}) => {
     const t = document.createElementNS(NS, 'text');
     t.setAttribute('x', x);
     t.setAttribute('y', y);
     if (fill) t.setAttribute('fill', fill);
+    for (const [k, v] of Object.entries(attrs)) t.setAttribute(k, v);
     t.textContent = text;
     sbGame.appendChild(t);
   };
@@ -173,8 +229,15 @@
     sbGame.replaceChildren();
     addText(columnX(0), 27, `OUTS ${outs}`);
     addText(columnX(10), 27, `STRK ${strikes}`);
-    for (let i = 0; i < Math.min(inning, 9); i++) addText(columnX(2 * i), 36, String(runs[i] || 0), '#ffd23f');
-    addText(columnX(19), 36, String(runs.reduce((a, b) => a + b, 0)), '#ffd23f');
+    // Each inning is centred under its number; a 10+ inning drops to a smaller size to fit its column.
+    for (let i = 0; i < Math.min(inning, 9); i++) {
+      const r = runs[i] || 0;
+      addText(columnX(2 * i) + 3, 36, String(r), '#ffd23f', r > 9 ? { 'text-anchor': 'middle', 'font-size': '4.5' } : { 'text-anchor': 'middle' });
+    }
+    // The total is right-aligned to the R column, so 10+ grows leftward into the empty gap
+    // instead of past the frame. Past 99 it shrinks a size.
+    const total = runs.reduce((a, b) => a + b, 0);
+    addText(columnX(19) + 6, 36, String(total), '#ffd23f', total > 99 ? { 'text-anchor': 'end', 'font-size': '4.5' } : { 'text-anchor': 'end' });
   };
 
   // ---------- aim ----------
@@ -293,9 +356,11 @@
   };
 
   const HIT_TARGETS = {
-    1: { '-1': [72, 130], 0: [176, 120], 1: [248, 130] },
-    2: { '-1': [100, 100], 0: [130, 102], 1: [218, 100] },
-    4: { '-1': [40, 44], 0: [186, 26], 1: [282, 44] },
+    // Singles drop in front of the outfielders, doubles reach the base of the wall in the gaps,
+    // and home runs land in the left-field stands, over the scoreboard, or on the warehouse.
+    1: { '-1': [100, 136], 0: [176, 122], 1: [220, 136] },
+    2: { '-1': [104, 100], 0: [132, 98], 1: [216, 100] },
+    4: { '-1': [44, 70], 0: [186, 26], 1: [272, 46] },
   };
 
   const hit = async (bases, aim) => {
@@ -309,7 +374,7 @@
     await advance(bases);
     hideBall();
     renderBoard();
-    if (bases === 4) openCard('hr');
+    if (bases === 4) openCard(homeRunCard(aim));
     else if (state === 'inplay') state = 'ready';
   };
 
@@ -360,8 +425,9 @@
   const clearBases = () => { runnersLayer.replaceChildren(); onBase = [null, null, null]; };
 
   // ---------- cards ----------
-  const openCard = (key) => {
-    const card = CARDS[key];
+  // Takes a fielder's position key, or a card built on the spot (home runs).
+  const openCard = (keyOrCard) => {
+    const card = typeof keyOrCard === 'string' ? CARDS[keyOrCard] : keyOrCard;
     state = 'popup';
     $('game-card-label').textContent = card.label;
     $('game-card-title').textContent = card.title;
