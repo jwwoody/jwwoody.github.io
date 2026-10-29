@@ -325,8 +325,12 @@
           <article class="card" aria-labelledby="p-hoop">
             <h3 id="p-hoop">HOOPSCOREBOARD</h3>
             <figure class="preview preview-phone preview-right">
-              <figcaption class="preview-bar">FINAL BOX SCORE</figcaption>
-              <img src="img/hoopscoreboard.jpg" width="658" height="1080" loading="lazy" alt="HoopScoreboard box score on a phone, with Jeffrey's past employers as the players: BYUtv 13 points, Provo Rec Center 11 and BYU-Pathway Worldwide 8, all shooting 100 percent.">
+              <figcaption class="preview-bar">GAME DEMO</figcaption>
+              <!-- Touch screens and reduced-motion users get the still box score, not the looping GIF. -->
+              <picture>
+                <source media="(hover: none), (prefers-reduced-motion: reduce)" srcset="img/hoopscoreboard.jpg" width="390" height="844">
+                <img src="img/hoopscoreboard-demo.gif" width="300" height="649" loading="lazy" alt="HoopScoreboard on a phone: setting up a team called Jeffrey's All-Stars with players named BYUtv, BYU-Pathway Worldwide, Morgan Stanley, Provo Rec Center, Washington Rock Quarries and BYU Student Wellness, scoring a game with one substitution, and ending on a 20 to 7 victory box score.">
+              </picture>
             </figure>
             <dl class="stats">
               <dt>STACK</dt><dd>React, TypeScript, Cloudflare</dd>
