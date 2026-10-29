@@ -422,7 +422,7 @@ ul.bullets li::marker { color: var(--yellow); }
 @media (hover: hover) and (min-width: 48rem) {
   .preview-right, .preview-left { top: -4px; bottom: auto; transform: none; }
   .preview-right { left: calc(100% + 1rem); }
-  .preview-left { left: auto; right: calc(100% + 1rem); width: min(30rem, calc(50vw - 3rem)); }
+  .preview-left { left: auto; right: calc(100% + 1rem); width: min(26rem, calc(50vw - 3rem)); }
 }
 
 /* No hover on touch screens, so show the screenshot inside the card instead. */
