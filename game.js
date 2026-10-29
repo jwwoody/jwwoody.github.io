@@ -213,11 +213,15 @@
   const BASES = [[226, 170], [160, 128], [94, 170]];
 
   // ---------- state ----------
-  let state = 'off'; // off | ready | pitching | inplay | popup
+  let state = 'off'; // off | ready | pitching | inplay | popup | over
   let strikes = 0;
   let outs = 0;
   let inning = 1;
   let runs = [0];
+  let hits = 0;
+  let homers = 0;
+  let playAgain = false; // set when the final card's PLAY AGAIN button closes it
+  const INNINGS = 9;
   let onBase = [null, null, null]; // runner <use> elements on 1B, 2B, 3B
   let pitchInfo = null;
   let token = 0; // bumped on quit so in-flight animations stop
@@ -321,11 +325,15 @@
     const dur = rand(...type.ms);
     const side = Math.random() < 0.5 ? -1 : 1;
     const mph = Math.round(rand(...type.mph));
+    // Location as the ball crosses the plate, in field units from its centre. The batter
+    // stands on the left (third-base) side, so negative is inside and positive is outside.
+    const loc = pick([[-5, 0.3], [0, 0.4], [5, 0.3]]) + rand(-1.5, 1.5);
     // Past the plate the ball keeps the speed it arrived with, until it reaches the catcher.
     const endSlope = (type.ease(1) - type.ease(0.99)) / 0.01;
     const t0 = performance.now();
-    pitchInfo = { t0, arrive: t0 + dur, swung: false, done: false };
+    pitchInfo = { t0, arrive: t0 + dur, swung: false, done: false, off: loc + type.bend(1, side) };
     setSign(`${type.name} ${mph}`);
+    placeBall(160, 170); // start from the mound, not wherever the last pitch ended
     ball.style.opacity = '1';
     say(`Here comes a ${type.name.toLowerCase()}, ${mph} miles an hour.`);
     const mine = token;
@@ -336,7 +344,7 @@
       const y = 170 + 34 * travel;
       if (y >= 220) { pitchInfo.done = true; hideBall(); strike(pitchInfo.swung ? 'swinging' : 'looking'); return; }
       const q = Math.min(p, 1);
-      placeBall(160 + type.bend(q, side), y, type.size(q));
+      placeBall(160 + loc * q + type.bend(q, side), y, type.size(q));
       requestAnimationFrame(frame);
     };
     requestAnimationFrame(frame);
@@ -352,11 +360,30 @@
     if (state !== 'pitching' || pitchInfo.swung) return;
     pitchInfo.swung = true;
     swingPose();
-    const miss = Math.abs(performance.now() - pitchInfo.arrive);
+    const dt = performance.now() - pitchInfo.arrive; // negative = early, positive = late
+    const miss = Math.abs(dt);
     // Timing windows in ms either side of the ball reaching the plate. Tightened twice after
     // play-testing (a 20-run first inning was too easy); the pitch mix and the center fielder
     // add the rest of the challenge.
     if (miss > 176) return; // whiff: the ball carries on to the catcher
+
+    // Timing that fights the location: early on an outside pitch rolls over it to the left
+    // side or pops it up; late on an inside pitch gets jammed toward the right side.
+    const off = pitchInfo.off;
+    const fooled = off > 3 && dt < -20 ? 'outside-early' : off < -3 && dt > 20 ? 'inside-late' : null;
+    if (fooled) {
+      const result = fooled === 'outside-early'
+        ? pick([['whiff', 0.25], ['ground', 0.45], ['popup', 0.3]])
+        : pick([['whiff', 0.25], ['ground', 0.4], ['bloop', 0.35]]);
+      if (result === 'whiff') return;
+      pitchInfo.done = true;
+      state = 'inplay';
+      if (result === 'ground') groundOut(fooled === 'outside-early' ? -1 : 1);
+      else if (result === 'popup') popOut(pick([['3b', 0.4], ['ss', 0.3], ['c', 0.3]]));
+      else bloop();
+      return;
+    }
+
     pitchInfo.done = true;
     state = 'inplay';
     const aim = currentAim();
@@ -429,6 +456,23 @@
     if (await flight(POS[pos].x, POS[pos].y + 4, 1100, 34)) recordOut(pos, 'Fly ball caught in');
   };
 
+  // Rolled over an outside pitch: a high, short pop-up on the left side or behind the plate.
+  const popOut = async (pos) => {
+    const [x, y] = pos === 'c' ? [160, 214] : [POS[pos].x, POS[pos].y + 4];
+    if (await flight(x, y, 1300, 55)) recordOut(pos, 'Pop-up to');
+  };
+
+  // Jammed on an inside pitch: a soft liner toward short right that drops in, or doesn't.
+  const bloop = async () => {
+    if (Math.random() < 0.6) {
+      if (!(await flight(222, 140, 700, 14))) return;
+      await scoreHit(1, 'BLOOP SINGLE', 'Bloop single to short right.');
+      if (state === 'inplay') state = 'ready';
+    } else if (await flight(POS['2b'].x, POS['2b'].y + 4, 700, 14)) {
+      recordOut('2b', 'Soft liner to');
+    }
+  };
+
   const HIT_TARGETS = {
     // Singles drop in front of the outfielders, doubles reach the base of the wall in the gaps,
     // and home runs land in the left-field stands, over the scoreboard, or on the warehouse.
@@ -481,17 +525,25 @@
       setSign(bases === 4 ? 'ROBBED!' : 'WHAT A CATCH');
       return;
     }
+    await scoreHit(bases, ...(bases === 4 ? ['HOME RUN!', 'Home run!']
+      : bases === 2 ? ['DOUBLE!', 'Double!'] : ['BASE HIT!', 'Base hit!']));
+    if (bases === 4) openCard(homeRunCard(aim));
+    else if (state === 'inplay') state = 'ready';
+  };
+
+  // A ball that fell in: count it, run the bases, and update the board.
+  async function scoreHit(bases, signText, spoken) {
     if (bases === 4) hideBall();
     strikes = 0;
-    setSign(bases === 4 ? 'HOME RUN!' : bases === 2 ? 'DOUBLE!' : 'BASE HIT!');
-    say(bases === 4 ? 'Home run!' : bases === 2 ? 'Double!' : 'Base hit!');
+    hits += 1;
+    if (bases === 4) homers += 1;
+    setSign(signText);
+    say(spoken);
     await advance(bases);
     hideBall();
     renderBoard();
     sendCFHome();
-    if (bases === 4) openCard(homeRunCard(aim));
-    else if (state === 'inplay') state = 'ready';
-  };
+  }
 
   // ---------- runners ----------
   const placeRunner = (el, [x, y]) => { el.setAttribute('x', x - 6); el.setAttribute('y', y - 17); };
@@ -544,7 +596,8 @@
   const openCard = (keyOrCard) => {
     const card = keyOrCard === 'cf' ? centerFieldCard()
       : typeof keyOrCard === 'string' ? CARDS[keyOrCard] : keyOrCard;
-    state = 'popup';
+    state = card.final ? 'over' : 'popup';
+    $('game-card-close').textContent = card.closeText || 'KEEP PLAYING';
     $('game-card-label').textContent = card.label;
     $('game-card-title').textContent = card.title;
     $('game-card-body').innerHTML = card.body;
@@ -566,6 +619,14 @@
 
   dialog.addEventListener('close', () => {
     if (state === 'off') return;
+    if (state === 'over') {
+      // PLAY AGAIN starts a fresh game; Escape or closing it any other way ends the game.
+      const again = playAgain;
+      playAgain = false;
+      if (again) start(); else quit();
+      return;
+    }
+    if (outs >= 3 && inning >= INNINGS) { gameOver(); return; }
     if (outs >= 3) {
       outs = 0;
       strikes = 0;
@@ -580,7 +641,93 @@
     state = 'ready';
     field.focus({ preventScroll: true });
   });
-  $('game-card-close').addEventListener('click', () => dialog.close());
+  $('game-card-close').addEventListener('click', () => {
+    if (state === 'over') playAgain = true;
+    dialog.close();
+  });
+
+  // ---------- the end of the game ----------
+  const svg = field.querySelector('svg');
+  const fireworksLayer = document.createElementNS(NS, 'g');
+  fireworksLayer.setAttribute('id', 'fireworks');
+  svg.appendChild(fireworksLayer);
+  const FIREWORK_COLORS = ['#ffd23f', '#f07a2e', '#ffffff', '#8fcff5', '#e8584a', '#7ee081'];
+
+  const sparks = (x, y, color, radius) => Array.from({ length: 14 }, (_, i) => {
+    const angle = (i / 14) * Math.PI * 2;
+    const r = document.createElementNS(NS, 'rect');
+    r.setAttribute('width', '3');
+    r.setAttribute('height', '3');
+    r.setAttribute('fill', color);
+    r.setAttribute('x', x + Math.cos(angle) * radius - 1);
+    r.setAttribute('y', y + Math.sin(angle) * radius - 1);
+    fireworksLayer.appendChild(r);
+    return { r, angle };
+  });
+
+  // One rocket: a trail rises from the stands, then bursts into a ring of sparks that falls and fades.
+  const launch = async (x, y, color) => {
+    const trail = document.createElementNS(NS, 'rect');
+    trail.setAttribute('width', '1');
+    trail.setAttribute('height', '3');
+    trail.setAttribute('fill', '#ffffff');
+    fireworksLayer.appendChild(trail);
+    const rose = await tween(450, (p) => { trail.setAttribute('x', x); trail.setAttribute('y', 110 - (110 - y) * p); });
+    trail.remove();
+    if (!rose) return;
+    const parts = sparks(x, y, color, 0);
+    await tween(1100, (p) => {
+      const reach = 24 * (1 - (1 - p) * (1 - p));
+      parts.forEach(({ r, angle }) => {
+        r.setAttribute('x', (x + Math.cos(angle) * reach - 1).toFixed(1));
+        r.setAttribute('y', (y + Math.sin(angle) * reach + 10 * p * p - 1).toFixed(1));
+        r.setAttribute('opacity', (1 - p).toFixed(2));
+      });
+    });
+    parts.forEach(({ r }) => r.remove());
+  };
+
+  const fireworks = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Still bursts, no movement.
+      [[70, 30, 0], [160, 22, 1], [250, 34, 4]].forEach(([x, y, c]) => sparks(x, y, FIREWORK_COLORS[c], 14));
+      return;
+    }
+    const mine = token;
+    for (let i = 0; i < 14; i++) {
+      setTimeout(() => {
+        if (mine !== token) return;
+        launch(rand(30, 290), rand(14, 60), FIREWORK_COLORS[i % FIREWORK_COLORS.length]);
+      }, i * 280);
+    }
+  };
+
+  const finalCard = () => {
+    const total = runs.reduce((a, b) => a + b, 0);
+    const title = total === 0 ? "PITCHERS' DUEL" : total < 10 ? 'BALL GAME!' : total < 20 ? 'WHAT A GAME!' : 'FOR THE RECORD BOOKS!';
+    const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
+    return {
+      final: true,
+      label: `FINAL · ${INNINGS} INNINGS`,
+      title,
+      body: `<p class="final-score">${plural(total, 'RUN').toUpperCase()}</p>`
+        + `<p>${plural(hits, 'hit')} and ${plural(homers, 'home run')} over nine innings. Thanks for playing!</p>`
+        + '<p>The fielders only told you part of it. Scroll through the site for the rest of my experience, projects and skills.</p>',
+      link: ['#about', 'EXPLORE THE SITE'],
+      closeText: 'PLAY AGAIN',
+    };
+  };
+
+  const gameOver = () => {
+    state = 'over';
+    const total = runs.reduce((a, b) => a + b, 0);
+    renderBoard();
+    setSign('FINAL');
+    say(`That's the ball game. Final score: ${total} runs.`);
+    fireworks();
+    // Let the show play out before the final card covers the field.
+    pause(4400).then((ok) => ok && openCard(finalCard()));
+  };
   $('game-card-link').addEventListener('click', () => {
     // Following a card's link ends the game and lets the browser go where the link points.
     quit(false);
@@ -591,9 +738,11 @@
   const start = () => {
     token += 1;
     state = 'ready';
-    strikes = 0; outs = 0; inning = 1; runs = [0];
+    strikes = 0; outs = 0; inning = 1; runs = [0]; hits = 0; homers = 0;
+    playAgain = false;
     clearBases();
     placeCF([0, 0]);
+    fireworksLayer.replaceChildren();
     ball.classList.remove('pitch');
     hideBall();
     sbDefault.style.display = 'none';
@@ -614,6 +763,7 @@
     held.left = held.right = false;
     clearBases();
     placeCF([0, 0]);
+    fireworksLayer.replaceChildren();
     hideBall();
     showAim();
     sbGame.replaceChildren();
@@ -644,7 +794,7 @@
   // Keys only count while focus is in the field or its control bar, so the rest of the page
   // keeps normal scrolling and Tab always moves on.
   col.addEventListener('keydown', (e) => {
-    if (state === 'off' || state === 'popup') return;
+    if (state === 'off' || state === 'popup' || state === 'over') return;
     const onControl = e.target.closest('a, button');
     if (onControl && e.target !== field && (e.key === 'Enter' || e.key === ' ') && !onControl.closest('#game-touch')) return;
     switch (e.key) {
