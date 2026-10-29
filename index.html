@@ -230,6 +230,20 @@
               <rect class="tag-bg" x="170" y="233" width="29" height="11"/>
               <text class="tag-text" x="184.5" y="242" font-size="7" text-anchor="middle">UMP</text>
             </a>
+
+            <!-- Hover callouts say where each spot goes. Drawn last so they sit on top of every player. -->
+            <g class="callouts" font-size="7" text-anchor="middle" fill="#0b0b0b">
+              <g class="callout callout-lf"><rect x="11" y="93" width="78" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="50" y="102">&gt; LINKEDIN</text></g>
+              <g class="callout callout-cf"><rect x="128" y="87" width="64" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="160" y="96">&gt; GITHUB</text></g>
+              <g class="callout callout-rf"><rect x="229" y="93" width="78" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="268" y="102">&gt; EMAIL ME</text></g>
+              <g class="callout callout-2b"><rect x="121" y="106" width="78" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="160" y="115">&gt; PROJECTS</text></g>
+              <g class="callout callout-ss"><rect x="81" y="119" width="85" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="123.5" y="128">&gt; EDUCATION</text></g>
+              <g class="callout callout-1b"><rect x="182" y="137" width="92" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="228" y="146">&gt; EXPERIENCE</text></g>
+              <g class="callout callout-3b"><rect x="62" y="137" width="64" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="94" y="146">&gt; SKILLS</text></g>
+              <g class="callout callout-p"><rect x="125" y="143" width="71" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="160.5" y="152">&gt; CONTACT</text></g>
+              <g class="callout callout-c"><rect x="56" y="217" width="78" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="95" y="226">&gt; ABOUT ME</text></g>
+              <g class="callout callout-ump"><rect x="203" y="233" width="92" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="249" y="242">&gt; SITE RULES</text></g>
+            </g>
           </svg>
         </div>
 
@@ -254,7 +268,7 @@
       <section id="about" class="panel" aria-labelledby="about-heading">
         <h2 id="about-heading"><span class="base" aria-hidden="true"><b>C</b></span>ABOUT ME</h2>
         <p class="lede">I build streaming video apps and the services behind them. Day to day I work on Roku, Apple TV, iPhone, iPad, Android and the web, plus the Node.js and AWS backend they run on.</p>
-        <p>Most of my work is live playback. I keep it working for a 24/7 channel that peaks above 170,000 concurrent viewers, and I'm usually the first one looking at the dashboards when something breaks on air. I also manage a small team of junior engineers.</p>
+        <p>Most of my work is live playback. I keep it working for BYUtv's 24/7 channel, which peaks above 170,000 concurrent viewers, and I'm usually the first one looking at the dashboards when something breaks on air. I also manage a small team of junior engineers.</p>
         <ul class="links" aria-label="Profiles">
           <li><a class="button" href="https://www.linkedin.com/in/jeffrey-woodbury/">LINKEDIN</a></li>
           <li><a class="button" href="https://github.com/jwwoody">GITHUB</a></li>
@@ -266,7 +280,7 @@
         <h2 id="experience-heading"><span class="base" aria-hidden="true"><b>1B</b></span>EXPERIENCE</h2>
 
         <h3>Senior Full Stack Software Engineer</h3>
-        <p class="meta">National TV, radio and streaming network · 2022 – present</p>
+        <p class="meta">BYU Broadcasting (BYUtv) · 2022 – present</p>
         <ul class="bullets">
           <li>Cut the Roku app's crash rate from 2.5% to 0.0% over a series of releases.</li>
           <li>Cut data use on idle Apple TVs by 95% by changing how the home-screen previews play.</li>
@@ -282,7 +296,7 @@
         </ul>
 
         <h3>AI Engineer</h3>
-        <p class="meta">Online higher-education nonprofit · 2021 – 2022</p>
+        <p class="meta">BYU-Pathway Worldwide · 2021 – 2022</p>
         <ul class="bullets">
           <li>Built a Python chatbot on Node.js and Azure that connected students with alumni and resources, cutting staff labor costs by 70%.</li>
           <li>Built a transfer-credit web app covering 3,000 students' records and cut process costs by 50%.</li>
@@ -298,7 +312,7 @@
       <section id="education" class="panel" aria-labelledby="education-heading">
         <h2 id="education-heading"><span class="base" aria-hidden="true"><b>SS</b></span>EDUCATION</h2>
         <ul class="bullets">
-          <li>B.S. Computer Science, minor in Mathematics, 2020</li>
+          <li>Brigham Young University (BYU), B.S. Computer Science, minor in Mathematics, 2020</li>
           <li>AWS Certified Solutions Architect – Associate</li>
           <li>AWS Certified Cloud Practitioner</li>
           <li>Stanford CS193p, Developing Apps for iOS (SwiftUI), completed 2025</li>
@@ -310,6 +324,10 @@
         <div class="cards">
           <article class="card" aria-labelledby="p-hoop">
             <h3 id="p-hoop">HOOPSCOREBOARD</h3>
+            <figure class="preview">
+              <figcaption class="preview-bar">PREVIEW · HOOPSCOREBOARD.COM</figcaption>
+              <img src="img/hoopscoreboard.jpg" width="1200" height="750" loading="lazy" alt="HoopScoreboard home page: the heading reads Free Basketball Scoreboard with Plus/Minus, above a form to set up your roster.">
+            </figure>
             <dl class="stats">
               <dt>STACK</dt><dd>React, TypeScript, Cloudflare</dd>
               <dt>SINCE</dt><dd>2025</dd>
@@ -321,13 +339,17 @@
 
           <article class="card" aria-labelledby="p-dat">
             <h3 id="p-dat">DAT ANGLE RANKING</h3>
+            <figure class="preview">
+              <figcaption class="preview-bar">PREVIEW · DATANGLERANKING.COM</figcaption>
+              <img src="img/datangleranking.jpg" width="1200" height="750" loading="lazy" alt="DAT Angle Ranking practice screen: four generated angles to rank from smallest to largest, with dropdowns and a Submit button.">
+            </figure>
             <dl class="stats">
               <dt>STACK</dt><dd>Python, Flask, matplotlib</dd>
               <dt>SINCE</dt><dd>2021</dd>
               <dt>VISITS</dt><dd>About 1,000 a month</dd>
             </dl>
             <p>A practice tool for students preparing for the Dental Admission Test. It generates angle-ranking problems from your settings.</p>
-            <p class="card-link"><a href="https://github.com/jwwoody/DAT-Angle-Ranking">Source on GitHub</a></p>
+            <p class="card-link"><a href="https://www.datangleranking.com/">datangleranking.com</a> · <a href="https://github.com/jwwoody/DAT-Angle-Ranking">Source</a></p>
           </article>
 
           <article class="card" aria-labelledby="p-wyr">

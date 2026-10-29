@@ -182,6 +182,28 @@ header.site nav a:hover { color: var(--yellow); }
 .park-grid:has(.lineup a[data-pos="rf"]:is(:hover, :focus-visible)) .spot-rf .tag-text,
 .park-grid:has(.lineup a[data-pos="ss"]:is(:hover, :focus-visible)) .spot-ss .tag-text { fill: #0b0b0b; }
 
+/* Callouts name the destination, from a hover on the field or a hover/focus on the lineup. */
+.callout { opacity: 0; pointer-events: none; }
+.field svg:has(.spot-c:hover) .callout-c,
+.field svg:has(.spot-1b:hover) .callout-1b,
+.field svg:has(.spot-2b:hover) .callout-2b,
+.field svg:has(.spot-3b:hover) .callout-3b,
+.field svg:has(.spot-ss:hover) .callout-ss,
+.field svg:has(.spot-p:hover) .callout-p,
+.field svg:has(.spot-lf:hover) .callout-lf,
+.field svg:has(.spot-cf:hover) .callout-cf,
+.field svg:has(.spot-rf:hover) .callout-rf,
+.field svg:has(.spot-ump:hover) .callout-ump,
+.park-grid:has(.lineup a[data-pos="c"]:is(:hover, :focus-visible)) .callout-c,
+.park-grid:has(.lineup a[data-pos="1b"]:is(:hover, :focus-visible)) .callout-1b,
+.park-grid:has(.lineup a[data-pos="2b"]:is(:hover, :focus-visible)) .callout-2b,
+.park-grid:has(.lineup a[data-pos="3b"]:is(:hover, :focus-visible)) .callout-3b,
+.park-grid:has(.lineup a[data-pos="ss"]:is(:hover, :focus-visible)) .callout-ss,
+.park-grid:has(.lineup a[data-pos="p"]:is(:hover, :focus-visible)) .callout-p,
+.park-grid:has(.lineup a[data-pos="lf"]:is(:hover, :focus-visible)) .callout-lf,
+.park-grid:has(.lineup a[data-pos="cf"]:is(:hover, :focus-visible)) .callout-cf,
+.park-grid:has(.lineup a[data-pos="rf"]:is(:hover, :focus-visible)) .callout-rf { opacity: 1; }
+
 .pitch { animation: pitch 1.6s steps(12) 0.6s 2 both; }
 @keyframes pitch {
   0%   { transform: translate(0, 0); opacity: 1; }
@@ -359,9 +381,54 @@ ul.bullets li::marker { color: var(--yellow); }
 .card .stats dt { font-family: var(--pixel); font-size: 0.6rem; padding-top: 0.3rem; }
 .card .stats dd { margin: 0; }
 .card p { margin: 0.75rem 0.85rem; }
-.card .card-link { margin-top: auto; padding: 0 0.85rem 0.9rem; }
+.card .card-link { margin: auto 0 0; padding: 0 0.85rem 0.9rem; }
 .card a { color: #1b3fb0; font-weight: 600; }
 .card a:focus-visible { outline-color: var(--card-ink); }
+
+/* Preview window: pops up over the card row on hover or keyboard focus.
+   Positioned against .cards, so it stays centered no matter which card opened it. */
+.cards { position: relative; }
+.preview {
+  position: absolute;
+  z-index: 5;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  width: min(30rem, calc(100vw - 2rem));
+  margin: 0;
+  transform: translateX(-50%);
+  background: #ffffff;
+  border: 4px solid #0b0b0b;
+  box-shadow: 8px 8px 0 #060a24;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s steps(3), visibility 0.12s;
+}
+.card:hover .preview,
+.card:focus-within .preview { opacity: 1; visibility: visible; }
+.preview-bar {
+  font-family: var(--pixel);
+  font-size: 0.6rem;
+  line-height: 1.4;
+  color: var(--yellow);
+  background: #1f2fa8;
+  padding: 0.5rem 0.65rem;
+  border-bottom: 4px solid #0b0b0b;
+}
+.preview img { display: block; width: 100%; height: auto; }
+
+/* No hover on touch screens, so show the screenshot inside the card instead. */
+@media (hover: none) {
+  .preview {
+    position: static;
+    width: auto;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    border-width: 0 0 4px;
+    box-shadow: none;
+  }
+  .preview-bar { display: none; }
+}
 
 /* ---------- Skills as a scouting report ---------- */
 
