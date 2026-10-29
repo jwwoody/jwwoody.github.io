@@ -25,6 +25,18 @@
 
 * { box-sizing: border-box; }
 
+[hidden] { display: none !important; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
 body {
@@ -102,7 +114,7 @@ header.site nav a:hover { color: var(--yellow); }
 
 /* ---------- Ballpark hero ---------- */
 
-.ballpark { padding: 2rem 0 1rem; }
+.ballpark { padding-top: 2rem; padding-bottom: 1rem; }
 
 .marquee {
   margin: 0 auto 1.25rem;
@@ -203,6 +215,51 @@ header.site nav a:hover { color: var(--yellow); }
 .park-grid:has(.lineup a[data-pos="lf"]:is(:hover, :focus-visible)) .callout-lf,
 .park-grid:has(.lineup a[data-pos="cf"]:is(:hover, :focus-visible)) .callout-cf,
 .park-grid:has(.lineup a[data-pos="rf"]:is(:hover, :focus-visible)) .callout-rf { opacity: 1; }
+
+/* ---------- The game ---------- */
+
+.field-col { display: flex; flex-direction: column; gap: 0.9rem; min-width: 0; }
+.field:focus { outline: none; }
+.field.playing:focus-visible, .field.playing:focus { outline: 3px solid var(--yellow); outline-offset: 3px; }
+/* While playing, the field is a game, not a menu. */
+.field.playing .spot { pointer-events: none; }
+.spot.catching .ring { opacity: 1; }
+
+.game-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; }
+.game-help { margin: 0; flex: 1 1 14rem; color: var(--muted); font-size: 0.92rem; }
+.game-touch { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; width: 100%; }
+.game-touch .button { padding: 0.75rem 0.15rem; text-align: center; font-size: 0.5rem; }
+
+button.button { cursor: pointer; }
+.button-small { font-size: 0.6rem; padding: 0.7rem 0.75rem; }
+.button.button-alt { background: #ffffff; }
+.button.button-alt:hover { background: var(--yellow); }
+
+.game-card {
+  width: min(28rem, calc(100vw - 2rem));
+  padding: 1.25rem 1.25rem 1.4rem;
+  background: var(--panel);
+  color: var(--text);
+  border: 4px solid #ffffff;
+  outline: 4px solid #0b0b0b;
+  box-shadow: 10px 10px 0 #060a24;
+}
+.game-card::backdrop { background: rgba(6, 10, 36, 0.72); }
+.game-card-label {
+  font-family: var(--pixel);
+  font-size: 0.62rem;
+  color: var(--yellow);
+  margin: 0 0 0.6rem;
+}
+.game-card h2 {
+  font-family: var(--pixel);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #ffffff;
+  margin: 0 0 0.75rem;
+}
+.game-card p { margin: 0.5rem 0; }
+.game-card-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
 
 .pitch { animation: pitch 1.6s steps(12) 0.6s 2 both; }
 @keyframes pitch {

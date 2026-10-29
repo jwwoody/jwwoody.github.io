@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#0d1540">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/PressStart2P-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -37,9 +37,11 @@
       </div>
 
       <div class="park-grid">
+        <div class="field-col">
         <!-- The field is a mouse/touch shortcut to the same places as the lineup card,
-             so it is hidden from assistive tech and kept out of the tab order. -->
-        <div class="field">
+             so the drawing is hidden from assistive tech and its links are kept out of the
+             tab order. During the game, the field itself takes focus so it can read keys. -->
+        <div class="field" id="field" tabindex="-1" aria-label="Baseball game" aria-describedby="game-help">
           <svg viewBox="0 0 320 248" aria-hidden="true" focusable="false" shape-rendering="crispEdges" font-family="'Press Start 2P', ui-monospace, monospace">
             <defs>
               <pattern id="crowd" width="6" height="6" patternUnits="userSpaceOnUse">
@@ -89,6 +91,17 @@
                 <rect x="2" y="14" width="2" height="2" fill="#0b0b0b"/>
                 <rect x="6" y="14" width="2" height="2" fill="#0b0b0b"/>
               </symbol>
+              <symbol id="batter-swing" viewBox="0 0 18 18">
+                <rect x="9" y="9" width="9" height="2" fill="#e0a85e"/>
+                <rect x="3" y="2" width="5" height="3" fill="#2a2f45"/>
+                <rect x="4" y="5" width="4" height="3" fill="#f0b890"/>
+                <rect x="2" y="8" width="7" height="4" fill="#ffd23f"/>
+                <rect x="8" y="9" width="2" height="2" fill="#f0b890"/>
+                <rect x="2" y="12" width="7" height="1" fill="#2a2f45"/>
+                <rect x="2" y="13" width="7" height="3" fill="#2a2f45"/>
+                <rect x="1" y="16" width="3" height="2" fill="#0b0b0b"/>
+                <rect x="7" y="16" width="3" height="2" fill="#0b0b0b"/>
+              </symbol>
             </defs>
 
             <!-- Sky, stands, flags -->
@@ -106,14 +119,17 @@
             <!-- Scoreboard -->
             <rect x="98" y="2" width="124" height="70" fill="#0b0b0b"/>
             <rect x="100" y="4" width="120" height="66" fill="none" stroke="#ffffff" stroke-width="1"/>
-            <text x="160" y="15" font-size="6" fill="#ffd23f" text-anchor="middle">1 2 3 4 5 6 7 8 9  R</text>
+            <text id="sb-header" x="160" y="15" font-size="6" fill="#ffd23f" text-anchor="middle">1 2 3 4 5 6 7 8 9  R</text>
             <rect x="104" y="18" width="112" height="1" fill="#ffffff"/>
-            <text x="106" y="27" font-size="6" fill="#ffffff">V</text>
-            <text x="106" y="36" font-size="6" fill="#ffffff">H</text>
-            <text x="209" y="27" font-size="6" fill="#ffffff">0</text>
-            <text x="209" y="36" font-size="6" fill="#ffffff">0</text>
+            <g id="sb-default" font-size="6" fill="#ffffff">
+              <text x="106" y="27">V</text>
+              <text x="106" y="36">H</text>
+              <text x="209" y="27">0</text>
+              <text x="209" y="36">0</text>
+            </g>
+            <g id="sb-game" font-size="6" fill="#ffffff"></g>
             <rect x="104" y="42" width="112" height="22" fill="#1f2fa8" stroke="#ffffff" stroke-width="1"/>
-            <text x="160" y="57" font-size="9" fill="#ffd23f" text-anchor="middle">PLAY BALL</text>
+            <text id="sb-sign" x="160" y="57" font-size="9" fill="#ffd23f" text-anchor="middle">PLAY BALL</text>
 
             <!-- Outfield wall and grass -->
             <rect y="88" width="320" height="2" fill="#ffd23f"/>
@@ -153,11 +169,8 @@
               <polygon points="156,210 164,210 164,213 160,216 156,213"/>
             </g>
 
-            <!-- Decorative: the batter -->
-            <use href="#batter" x="143" y="194" width="12" height="18"/>
-
-            <!-- The pitch -->
-            <rect class="pitch" x="159" y="168" width="2" height="2" fill="#ffffff"/>
+            <!-- The batter (decorative until the game starts) -->
+            <use id="batter" href="#batter" x="143" y="194" width="12" height="18"/>
 
             <!-- Clickable spots -->
             <a class="spot spot-cf" href="https://github.com/jwwoody" tabindex="-1">
@@ -231,6 +244,15 @@
               <text class="tag-text" x="184.5" y="242" font-size="7" text-anchor="middle">UMP</text>
             </a>
 
+            <!-- Game layer: runners, aim marker and the ball, above the players. -->
+            <g id="game-layer">
+              <g id="runners"></g>
+              <text id="aim-left" x="128" y="201" font-size="9" fill="#ffd23f" visibility="hidden">&lt;</text>
+              <text id="aim-right" x="185" y="201" font-size="9" fill="#ffd23f" visibility="hidden">&gt;</text>
+              <ellipse id="ball-shadow" cx="0" cy="0" rx="2" ry="1" fill="#0b0b0b" fill-opacity="0.35" visibility="hidden" shape-rendering="auto"/>
+              <rect id="ball" class="pitch" x="159" y="168" width="2" height="2" fill="#ffffff"/>
+            </g>
+
             <!-- Hover callouts say where each spot goes. Drawn last so they sit on top of every player. -->
             <g class="callouts" font-size="7" text-anchor="middle" fill="#0b0b0b">
               <g class="callout callout-lf"><rect x="11" y="93" width="78" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="50" y="102">&gt; LINKEDIN</text></g>
@@ -245,6 +267,20 @@
               <g class="callout callout-ump"><rect x="203" y="233" width="92" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="249" y="242">&gt; SITE RULES</text></g>
             </g>
           </svg>
+        </div>
+
+        <!-- Shown by game.js. Without JavaScript the field stays a plain menu. -->
+        <div class="game-bar" hidden>
+          <button type="button" class="button" id="game-toggle">PLAY BALL</button>
+          <p class="game-help" id="game-help">Hit one to a fielder and they'll tell you about me.</p>
+          <div class="game-touch" id="game-touch" hidden>
+            <button type="button" class="button button-small" data-act="pitch">PITCH</button>
+            <button type="button" class="button button-small" data-act="left" aria-label="Swing to left field">SWING &lt;</button>
+            <button type="button" class="button button-small" data-act="center" aria-label="Swing up the middle">SWING ^</button>
+            <button type="button" class="button button-small" data-act="right" aria-label="Swing to right field">SWING &gt;</button>
+          </div>
+          <p class="visually-hidden" id="game-live" aria-live="polite"></p>
+        </div>
         </div>
 
         <nav class="lineup" aria-labelledby="lineup-heading">
@@ -430,5 +466,17 @@
       <p>Pixel font: Press Start 2P (SIL Open Font License). The ballpark art was drawn for this site.</p>
     </div>
   </footer>
+
+  <dialog class="game-card" id="game-card" aria-labelledby="game-card-title">
+    <p class="game-card-label" id="game-card-label"></p>
+    <h2 id="game-card-title"></h2>
+    <div id="game-card-body"></div>
+    <div class="game-card-actions">
+      <button type="button" class="button" id="game-card-close" autofocus>KEEP PLAYING</button>
+      <a class="button button-alt" id="game-card-link" href="#about"></a>
+    </div>
+  </dialog>
+
+  <script src="game.js?v=2" defer></script>
 </body>
 </html>
