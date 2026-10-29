@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#0d1540">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/PressStart2P-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -219,14 +219,14 @@
             <use id="batter" href="#batter" x="143" y="194" width="12" height="18"/>
 
             <!-- Clickable spots -->
-            <a class="spot spot-cf" href="https://github.com/jwwoody" tabindex="-1">
-              <rect x="150" y="98" width="46" height="22" fill="#000" fill-opacity="0"/>
-              <rect class="ring" x="152.5" y="99.5" width="15" height="19" fill="none" stroke="#ffd23f" stroke-width="2"/>
-              <use href="#fielder" x="155" y="101" width="10" height="16"/>
-              <rect class="tag-bg" x="170" y="103" width="22" height="11"/>
-              <text class="tag-text" x="181" y="112" font-size="7" text-anchor="middle">CF</text>
+            <a class="spot spot-cf" href="https://github.com/jwwoody" tabindex="-1" target="_blank" rel="noopener">
+              <rect x="150" y="94" width="46" height="22" fill="#000" fill-opacity="0"/>
+              <rect class="ring" x="152.5" y="95.5" width="15" height="19" fill="none" stroke="#ffd23f" stroke-width="2"/>
+              <use href="#fielder" x="155" y="97" width="10" height="16"/>
+              <rect class="tag-bg" x="170" y="99" width="22" height="11"/>
+              <text class="tag-text" x="181" y="108" font-size="7" text-anchor="middle">CF</text>
             </a>
-            <a class="spot spot-lf" href="https://www.linkedin.com/in/jeffrey-woodbury/" tabindex="-1">
+            <a class="spot spot-lf" href="https://www.linkedin.com/in/jeffrey-woodbury/" tabindex="-1" target="_blank" rel="noopener">
               <rect x="55" y="109" width="46" height="22" fill="#000" fill-opacity="0"/>
               <rect class="ring" x="57.5" y="110.5" width="15" height="19" fill="none" stroke="#ffd23f" stroke-width="2"/>
               <use href="#fielder" x="60" y="112" width="10" height="16"/>
@@ -302,7 +302,7 @@
             <!-- Hover callouts say where each spot goes. Drawn last so they sit on top of every player. -->
             <g class="callouts" font-size="7" text-anchor="middle" fill="#0b0b0b">
               <g class="callout callout-lf"><rect x="26" y="98" width="78" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="65" y="107">&gt; LINKEDIN</text></g>
-              <g class="callout callout-cf"><rect x="128" y="87" width="64" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="160" y="96">&gt; GITHUB</text></g>
+              <g class="callout callout-cf"><rect x="128" y="83" width="64" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="160" y="92">&gt; GITHUB</text></g>
               <g class="callout callout-rf"><rect x="216" y="98" width="78" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="255" y="107">&gt; EMAIL ME</text></g>
               <g class="callout callout-2b"><rect x="158" y="117" width="78" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="197" y="126">&gt; PROJECTS</text></g>
               <g class="callout callout-ss"><rect x="81" y="119" width="85" height="11" fill="#ffd23f" stroke="#0b0b0b"/><text x="123.5" y="128">&gt; EDUCATION</text></g>
@@ -338,8 +338,8 @@
             <li><a href="#projects" data-pos="2b"><span class="pos">2B</span><span class="what">Projects<small>Things I built on my own</small></span></a></li>
             <li><a href="#skills" data-pos="3b"><span class="pos">3B</span><span class="what">Skills<small>Scouting report</small></span></a></li>
             <li><a href="#contact" data-pos="p"><span class="pos">P</span><span class="what">Contact<small>Pitch me a role</small></span></a></li>
-            <li><a href="https://www.linkedin.com/in/jeffrey-woodbury/" data-pos="lf"><span class="pos">LF</span><span class="what">LinkedIn<small>Opens linkedin.com</small></span></a></li>
-            <li><a href="https://github.com/jwwoody" data-pos="cf"><span class="pos">CF</span><span class="what">GitHub<small>Opens github.com</small></span></a></li>
+            <li><a href="https://www.linkedin.com/in/jeffrey-woodbury/" data-pos="lf" target="_blank" rel="noopener"><span class="pos">LF</span><span class="what">LinkedIn<small>Opens linkedin.com in a new tab</small></span></a></li>
+            <li><a href="https://github.com/jwwoody" data-pos="cf" target="_blank" rel="noopener"><span class="pos">CF</span><span class="what">GitHub<small>Opens github.com in a new tab</small></span></a></li>
             <li><a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x6a;&#101;&#x66;&#102;&#x72;&#101;&#x79;&#46;&#x77;&#46;&#x77;&#111;&#x6f;&#100;&#x62;&#117;&#x72;&#121;&#x40;&#103;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;" data-pos="rf"><span class="pos">RF</span><span class="what">Email<small>Opens your email app</small></span></a></li>
           </ol>
         </nav>
@@ -352,8 +352,8 @@
         <p class="lede">I build streaming video apps and the services behind them. Day to day I work on Roku, Apple TV, iPhone, iPad, Android and the web, plus the Node.js and AWS backend they run on.</p>
         <p>Most of my work is live playback. I keep it working for BYUtv's 24/7 channel, which peaks above 170,000 concurrent viewers, and I'm usually the first one looking at the dashboards when something breaks on air. I also manage a small team of junior engineers.</p>
         <ul class="links" aria-label="Profiles">
-          <li><a class="button" href="https://www.linkedin.com/in/jeffrey-woodbury/">LINKEDIN</a></li>
-          <li><a class="button" href="https://github.com/jwwoody">GITHUB</a></li>
+          <li><a class="button" href="https://www.linkedin.com/in/jeffrey-woodbury/" target="_blank" rel="noopener">LINKEDIN<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+          <li><a class="button" href="https://github.com/jwwoody" target="_blank" rel="noopener">GITHUB<span class="visually-hidden"> (opens in a new tab)</span></a></li>
           <li><a class="button" href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x6a;&#101;&#x66;&#102;&#x72;&#101;&#x79;&#46;&#x77;&#46;&#x77;&#111;&#x6f;&#100;&#x62;&#117;&#x72;&#121;&#x40;&#103;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">EMAIL</a></li>
         </ul>
       </section>
@@ -447,7 +447,7 @@
               <dt>VISITS</dt><dd>About 1,200 a month</dd>
             </dl>
             <p>A free web app I built to track live basketball stats, especially plus-minus, along with scoring, box scores, shooting and substitutions. It works on a phone and as a stream overlay in OBS or Streamlabs.</p>
-            <p class="card-link"><a href="https://hoopscoreboard.com/">hoopscoreboard.com</a></p>
+            <p class="card-link"><a href="https://hoopscoreboard.com/" target="_blank" rel="noopener">hoopscoreboard.com<span class="visually-hidden"> (opens in a new tab)</span></a></p>
           </article>
 
           <article class="card" aria-labelledby="p-dat">
@@ -465,7 +465,25 @@
               <dt>VISITS</dt><dd>About 1,000 a month</dd>
             </dl>
             <p>A practice tool for students preparing for the Dental Admission Test. It generates angle-ranking problems from your settings.</p>
-            <p class="card-link"><a href="https://www.datangleranking.com/">datangleranking.com</a> · <a href="https://github.com/jwwoody/DAT-Angle-Ranking">Source</a></p>
+            <p class="card-link"><a href="https://www.datangleranking.com/" target="_blank" rel="noopener">datangleranking.com<span class="visually-hidden"> (opens in a new tab)</span></a> · <a href="https://github.com/jwwoody/DAT-Angle-Ranking" target="_blank" rel="noopener">Source<span class="visually-hidden"> (opens in a new tab)</span></a></p>
+          </article>
+
+          <article class="card" aria-labelledby="p-terra">
+            <h3 id="p-terra">TERRA INCOGNITA</h3>
+            <figure class="preview preview-right preview-wide">
+              <figcaption class="preview-bar">TRAILER</figcaption>
+              <picture>
+                <source media="(hover: none), (prefers-reduced-motion: reduce)" srcset="img/terra-incognita.jpg" width="960" height="540">
+                <img src="img/terra-incognita-demo.gif" width="480" height="270" loading="lazy" alt="Terra Incognita trailer: a ship sails west from Spain across a parchment chart, the crew threatens mutiny, land is sighted and named, and the voyage ends with a report to the Crown.">
+              </picture>
+            </figure>
+            <dl class="stats">
+              <dt>STACK</dt><dd>Vanilla JavaScript, Natural Earth map data</dd>
+              <dt>YEAR</dt><dd>2026</dd>
+            </dl>
+            <p>A browser game where you sail Columbus's route into the unknown, claiming lands and trying to get back to Spain before your crew rebels. It's a single HTML file of vanilla JavaScript, with real coastlines from public-domain Natural Earth data and wind belts modeled on real ones.</p>
+            <p>I built it as a proof of concept for AI-assisted development. Even the trailer was made by playing and recording the game in a headless browser.</p>
+            <p class="card-link"><a href="https://jwwoody.github.io/columbus-discovery-game/" target="_blank" rel="noopener">Play it<span class="visually-hidden"> (opens in a new tab)</span></a> · <a href="https://github.com/jwwoody/columbus-discovery-game" target="_blank" rel="noopener">Source<span class="visually-hidden"> (opens in a new tab)</span></a></p>
           </article>
 
           <article class="card" aria-labelledby="p-wyr">
@@ -475,7 +493,7 @@
               <dt>YEAR</dt><dd>2023</dd>
             </dl>
             <p>An experiment that pairs "would you rather" prompts with generated images, built to wire an image-generation API into a serverless AWS backend.</p>
-            <p class="card-link"><a href="https://github.com/jwwoody/would-you-rather">Source on GitHub</a></p>
+            <p class="card-link"><a href="https://github.com/jwwoody/would-you-rather" target="_blank" rel="noopener">Source on GitHub<span class="visually-hidden"> (opens in a new tab)</span></a></p>
           </article>
         </div>
       </section>
@@ -498,7 +516,7 @@
 
       <section id="contact" class="panel" aria-labelledby="contact-heading">
         <h2 id="contact-heading"><span class="base" aria-hidden="true"><b>P</b></span>PITCH ME</h2>
-        <p>Have a role in mind? Email is the best way to reach me, or find me on <a href="https://www.linkedin.com/in/jeffrey-woodbury/">LinkedIn</a>.</p>
+        <p>Have a role in mind? Email is the best way to reach me, or find me on <a href="https://www.linkedin.com/in/jeffrey-woodbury/" target="_blank" rel="noopener">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a>.</p>
         <p><a class="button" href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x6a;&#101;&#x66;&#102;&#x72;&#101;&#x79;&#46;&#x77;&#46;&#x77;&#111;&#x6f;&#100;&#x62;&#117;&#x72;&#121;&#x40;&#103;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">EMAIL JEFFREY</a></p>
         <p class="meta">&#106;&#x65;&#102;&#x66;&#114;&#x65;&#121;&#x2e;&#119;&#x2e;&#119;&#x6f;&#111;&#x64;&#98;&#x75;&#114;&#x79;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</p>
       </section>
@@ -523,6 +541,6 @@
     </div>
   </dialog>
 
-  <script src="game.js?v=4" defer></script>
+  <script src="game.js?v=5" defer></script>
 </body>
 </html>

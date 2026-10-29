@@ -38,7 +38,7 @@
   const POS = {
     c: { x: 160, y: 223 }, p: { x: 160, y: 165 },
     '1b': { x: 235, y: 158 }, '2b': { x: 197, y: 140 }, ss: { x: 123, y: 140 }, '3b': { x: 85, y: 158 },
-    lf: { x: 65, y: 120 }, cf: { x: 160, y: 109 }, rf: { x: 255, y: 120 },
+    lf: { x: 65, y: 120 }, cf: { x: 160, y: 105 }, rf: { x: 255, y: 120 },
   };
   const CARDS = {
     c: {
@@ -87,11 +87,6 @@
       body: '<p>The left fielder makes the catch. My full work history is on LinkedIn.</p>',
       link: [LINKEDIN, 'OPEN LINKEDIN'],
     },
-    cf: {
-      label: 'CF · GITHUB', title: 'CAUGHT IN CENTER',
-      body: '<p>The center fielder runs it down. My side projects, like DAT Angle Ranking and Would You Rather, are on GitHub.</p>',
-      link: [GITHUB, 'OPEN GITHUB'],
-    },
     rf: {
       label: 'RF · EMAIL', title: 'CAUGHT IN RIGHT',
       body: '<p>The right fielder hauls it in. The quickest way to reach me is email.</p>',
@@ -139,17 +134,66 @@
     },
   ];
   const HR_TITLES = ['HOME RUN!', 'GONE!', 'OUT OF THE PARK!', "TOUCH 'EM ALL!"];
-  let highlightQueue = [];
-  const nextHighlight = () => {
-    if (!highlightQueue.length) {
-      highlightQueue = HIGHLIGHTS.map((_, i) => i);
-      for (let i = highlightQueue.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [highlightQueue[i], highlightQueue[j]] = [highlightQueue[j], highlightQueue[i]];
+
+  // Deals items in a shuffled order and reshuffles once every item has come up.
+  const deck = (items) => {
+    let queue = [];
+    return () => {
+      if (!queue.length) {
+        queue = items.map((_, i) => i);
+        for (let i = queue.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [queue[i], queue[j]] = [queue[j], queue[i]];
+        }
       }
-    }
-    return HIGHLIGHTS[highlightQueue.pop()];
+      return items[queue.pop()];
+    };
   };
+  const nextHighlight = deck(HIGHLIGHTS);
+
+  // The center fielder brings back something from GitHub, a different project each time.
+  const CF_TITLES = ['CAUGHT IN CENTER', 'RAN IT DOWN', 'WARNING-TRACK CATCH', 'DIVING CATCH!'];
+  const CF_SHOWCASE = [
+    {
+      name: 'TERRA INCOGNITA',
+      media: { gif: 'img/terra-incognita-demo.gif', still: 'img/terra-incognita.jpg', w: 480, h: 270,
+        alt: 'Terra Incognita trailer: a ship sails west across a parchment chart, land is sighted, and the voyage ends with a report to the Crown.' },
+      text: 'A browser game where you sail Columbus\'s route into the unknown and try to get home before the crew rebels. One HTML file of vanilla JavaScript, with real coastlines and wind belts.',
+      link: [`${GITHUB}/columbus-discovery-game`, 'SEE IT ON GITHUB'],
+    },
+    {
+      name: 'DAT ANGLE RANKING',
+      media: { gif: 'img/datangleranking-demo.gif', still: 'img/datangleranking.jpg', w: 480, h: 495,
+        alt: 'DAT Angle Ranking: four generated angles ranked from smallest to largest with dropdowns, marked Correct.' },
+      text: 'Practice for the angle-ranking section of the Dental Admission Test, built with Python and Flask. About 1,000 visits a month.',
+      link: [`${GITHUB}/DAT-Angle-Ranking`, 'SEE IT ON GITHUB'],
+    },
+    {
+      name: 'WOULD YOU RATHER',
+      text: '"Would you rather" prompts paired with generated images, built to wire an image-generation API into a serverless AWS backend with Vue and TypeScript.',
+      link: [`${GITHUB}/would-you-rather`, 'SEE IT ON GITHUB'],
+    },
+    {
+      name: 'THIS SITE',
+      text: 'This whole site, ballpark and game included, is on GitHub. Plain HTML and CSS, plus one small script for the game you\'re playing.',
+      link: [`${GITHUB}/jwwoody.github.io`, 'SEE IT ON GITHUB'],
+    },
+  ];
+  const nextShowcase = deck(CF_SHOWCASE);
+  const centerFieldCard = () => {
+    const s = nextShowcase();
+    const media = s.media
+      ? `<picture class="game-card-media"><source media="(prefers-reduced-motion: reduce)" srcset="${s.media.still}">`
+        + `<img src="${s.media.gif}" width="${s.media.w}" height="${s.media.h}" alt="${s.media.alt}"></picture>`
+      : '';
+    return {
+      label: `CF · GITHUB · ${s.name}`,
+      title: CF_TITLES[Math.floor(Math.random() * CF_TITLES.length)],
+      body: `${media}<p>${s.text}</p>`,
+      link: s.link,
+    };
+  };
+
   const homeRunCard = (aim) => {
     const h = nextHighlight();
     // Right field at this park ends at a brick warehouse.
@@ -251,21 +295,48 @@
   };
 
   // ---------- pitching and swinging ----------
+  // Each pitch reaches the plate at p = 1 (ease(1) = 1), so swing timing is always measured
+  // against the same moment. What changes is the speed, how that speed changes on the way in,
+  // and the sideways break.
+  const PITCHES = [
+    { name: 'FASTBALL', weight: 0.35, mph: [92, 97], ms: [560, 680],
+      ease: (p) => p, bend: () => 0, size: () => 2 },
+    // Starts quick and dies late, so an early swing is the trap.
+    { name: 'CHANGEUP', weight: 0.2, mph: [82, 86], ms: [800, 920],
+      ease: (p) => p + 0.18 * Math.sin(Math.PI * p), bend: (p, side) => side * 2 * p * p, size: () => 2 },
+    // Floats up and loops in, then speeds up at the end.
+    { name: 'CURVEBALL', weight: 0.2, mph: [76, 80], ms: [860, 980],
+      ease: (p) => p - 0.12 * Math.sin(Math.PI * p), bend: (p, side) => side * 9 * Math.sin(Math.PI * p),
+      size: (p) => 2 + Math.sin(Math.PI * p) },
+    // Looks like a fastball, then breaks late.
+    { name: 'SLIDER', weight: 0.25, mph: [85, 89], ms: [660, 780],
+      ease: (p) => p, bend: (p, side) => side * 6 * p * p * p, size: () => 2 },
+  ];
+  const pickPitch = () => pick(PITCHES.map((p) => [p, p.weight]));
+
   const pitch = () => {
     if (state !== 'ready') return;
     state = 'pitching';
-    setSign('PLAY BALL');
-    const dur = rand(650, 950);
+    const type = pickPitch();
+    const dur = rand(...type.ms);
+    const side = Math.random() < 0.5 ? -1 : 1;
+    const mph = Math.round(rand(...type.mph));
+    // Past the plate the ball keeps the speed it arrived with, until it reaches the catcher.
+    const endSlope = (type.ease(1) - type.ease(0.99)) / 0.01;
     const t0 = performance.now();
     pitchInfo = { t0, arrive: t0 + dur, swung: false, done: false };
+    setSign(`${type.name} ${mph}`);
     ball.style.opacity = '1';
-    say('Here comes the pitch.');
+    say(`Here comes a ${type.name.toLowerCase()}, ${mph} miles an hour.`);
     const mine = token;
     const frame = (now) => {
       if (mine !== token || pitchInfo.done) return;
-      const y = 170 + 34 * ((now - t0) / dur);
+      const p = (now - t0) / dur;
+      const travel = p <= 1 ? type.ease(p) : 1 + (p - 1) * endSlope;
+      const y = 170 + 34 * travel;
       if (y >= 220) { pitchInfo.done = true; hideBall(); strike(pitchInfo.swung ? 'swinging' : 'looking'); return; }
-      placeBall(160, y);
+      const q = Math.min(p, 1);
+      placeBall(160 + type.bend(q, side), y, type.size(q));
       requestAnimationFrame(frame);
     };
     requestAnimationFrame(frame);
@@ -282,13 +353,15 @@
     pitchInfo.swung = true;
     swingPose();
     const miss = Math.abs(performance.now() - pitchInfo.arrive);
-    if (miss > 210) return; // whiff: the ball carries on to the catcher
+    // Timing windows in ms either side of the ball reaching the plate. About 7% tighter than
+    // the first version; the pitch mix adds the rest of the challenge.
+    if (miss > 196) return; // whiff: the ball carries on to the catcher
     pitchInfo.done = true;
     state = 'inplay';
     const aim = currentAim();
-    if (miss <= 40) hit(4, aim);
-    else if (miss <= 85) hit(Math.random() < 0.35 ? 2 : 1, aim);
-    else if (miss <= 140) flyOut(aim);
+    if (miss <= 37) hit(4, aim);
+    else if (miss <= 79) hit(Math.random() < 0.35 ? 2 : 1, aim);
+    else if (miss <= 131) flyOut(aim);
     else groundOut(aim);
   };
 
@@ -427,7 +500,8 @@
   // ---------- cards ----------
   // Takes a fielder's position key, or a card built on the spot (home runs).
   const openCard = (keyOrCard) => {
-    const card = typeof keyOrCard === 'string' ? CARDS[keyOrCard] : keyOrCard;
+    const card = keyOrCard === 'cf' ? centerFieldCard()
+      : typeof keyOrCard === 'string' ? CARDS[keyOrCard] : keyOrCard;
     state = 'popup';
     $('game-card-label').textContent = card.label;
     $('game-card-title').textContent = card.title;
@@ -435,6 +509,16 @@
     const link = $('game-card-link');
     link.href = card.link[0];
     link.textContent = card.link[1];
+    // Other sites open in a new tab; jumps to a section of this page don't.
+    if (/^https?:/.test(card.link[0])) {
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.setAttribute('aria-label', `${card.link[1]} (opens in a new tab)`);
+    } else {
+      link.removeAttribute('target');
+      link.removeAttribute('rel');
+      link.removeAttribute('aria-label');
+    }
     if (!dialog.open) dialog.showModal();
   };
 

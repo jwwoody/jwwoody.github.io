@@ -259,6 +259,15 @@ button.button { cursor: pointer; }
   margin: 0 0 0.75rem;
 }
 .game-card p { margin: 0.5rem 0; }
+.game-card-media img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 15rem;
+  margin: 0 auto 0.75rem;
+  border: 3px solid #0b0b0b;
+}
 .game-card-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
 
 .pitch { animation: pitch 1.6s steps(12) 0.6s 2 both; }
@@ -488,6 +497,7 @@ ul.bullets li::marker { color: var(--yellow); }
 @media (hover: hover) and (min-width: 48rem) {
   .preview-right, .preview-left { top: -4px; bottom: auto; transform: none; }
   .preview-right { left: calc(100% + 1rem); }
+  .preview-right.preview-wide { width: min(26rem, calc(50vw - 3rem)); }
   .preview-left { left: auto; right: calc(100% + 1rem); width: min(26rem, calc(50vw - 3rem)); }
 }
 
