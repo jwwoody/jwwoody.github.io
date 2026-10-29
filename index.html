@@ -20,6 +20,7 @@
         <ul>
           <li><a href="#about">About</a></li>
           <li><a href="#experience">Experience</a></li>
+          <li><a href="#education">Education</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -152,10 +153,9 @@
               <polygon points="156,210 164,210 164,213 160,216 156,213"/>
             </g>
 
-            <!-- Decorative fielders (shortstop and second baseman) -->
-            <use href="#fielder" x="118" y="132" width="10" height="16"/>
+            <!-- Decorative: second baseman and the batter -->
             <use href="#fielder" x="192" y="132" width="10" height="16"/>
-            <use href="#catcher" x="155" y="218" width="10" height="10"/>
+            <use href="#batter" x="143" y="194" width="12" height="18"/>
 
             <!-- The pitch -->
             <rect class="pitch" x="159" y="168" width="2" height="2" fill="#ffffff"/>
@@ -209,12 +209,19 @@
               <rect class="tag-bg" x="170" y="160" width="15" height="11"/>
               <text class="tag-text" x="178" y="169" font-size="7" text-anchor="middle">P</text>
             </a>
-            <a class="spot spot-home" href="#about" tabindex="-1">
-              <rect x="88" y="190" width="70" height="24" fill="#000" fill-opacity="0"/>
-              <rect class="ring" x="140.5" y="191.5" width="16" height="22" fill="none" stroke="#ffd23f" stroke-width="2"/>
-              <use href="#batter" x="143" y="194" width="12" height="18"/>
-              <rect class="tag-bg" x="88" y="197" width="50" height="11"/>
-              <text class="tag-text" x="113" y="206" font-size="7" text-anchor="middle">AT BAT</text>
+            <a class="spot spot-ss" href="#education" tabindex="-1">
+              <rect x="92" y="130" width="38" height="20" fill="#000" fill-opacity="0"/>
+              <rect class="ring" x="115.5" y="130.5" width="15" height="19" fill="none" stroke="#ffd23f" stroke-width="2"/>
+              <use href="#fielder" x="118" y="132" width="10" height="16"/>
+              <rect class="tag-bg" x="92" y="135" width="22" height="11"/>
+              <text class="tag-text" x="103" y="144" font-size="7" text-anchor="middle">SS</text>
+            </a>
+            <a class="spot spot-c" href="#about" tabindex="-1">
+              <rect x="136" y="215" width="32" height="15" fill="#000" fill-opacity="0"/>
+              <rect class="ring" x="152.5" y="215.5" width="15" height="14" fill="none" stroke="#ffd23f" stroke-width="2"/>
+              <use href="#catcher" x="155" y="218" width="10" height="10"/>
+              <rect class="tag-bg" x="136" y="217" width="15" height="11"/>
+              <text class="tag-text" x="144" y="226" font-size="7" text-anchor="middle">C</text>
             </a>
             <a class="spot spot-ump" href="policies.html" tabindex="-1">
               <rect x="152" y="228" width="50" height="20" fill="#000" fill-opacity="0"/>
@@ -229,15 +236,15 @@
         <nav class="lineup" aria-labelledby="lineup-heading">
           <h2 id="lineup-heading">TODAY'S LINEUP</h2>
           <ol>
-            <li><a href="#about" data-pos="home"><span class="pos">HOME</span><span class="what">About me<small>Now batting</small></span></a></li>
+            <li><a href="#about" data-pos="c"><span class="pos">C</span><span class="what">About me<small>Behind the plate</small></span></a></li>
             <li><a href="#experience" data-pos="1b"><span class="pos">1B</span><span class="what">Experience<small>Where I've played</small></span></a></li>
+            <li><a href="#education" data-pos="ss"><span class="pos">SS</span><span class="what">Education<small>Degree and certifications</small></span></a></li>
             <li><a href="#projects" data-pos="2b"><span class="pos">2B</span><span class="what">Projects<small>Things I built on my own</small></span></a></li>
             <li><a href="#skills" data-pos="3b"><span class="pos">3B</span><span class="what">Skills<small>Scouting report</small></span></a></li>
             <li><a href="#contact" data-pos="p"><span class="pos">P</span><span class="what">Contact<small>Pitch me a role</small></span></a></li>
             <li><a href="https://www.linkedin.com/in/jeffrey-woodbury/" data-pos="lf"><span class="pos">LF</span><span class="what">LinkedIn<small>Opens linkedin.com</small></span></a></li>
             <li><a href="https://github.com/jwwoody" data-pos="cf"><span class="pos">CF</span><span class="what">GitHub<small>Opens github.com</small></span></a></li>
             <li><a href="mailto:jeffrey.w.woodbury@gmail.com" data-pos="rf"><span class="pos">RF</span><span class="what">Email<small>Opens your email app</small></span></a></li>
-            <li><a href="policies.html" data-pos="ump"><span class="pos">UMP</span><span class="what">Site rules<small>Privacy, cookies and terms</small></span></a></li>
           </ol>
         </nav>
       </div>
@@ -245,7 +252,7 @@
 
     <div class="wrap narrow">
       <section id="about" class="panel" aria-labelledby="about-heading">
-        <h2 id="about-heading"><span class="base" aria-hidden="true"><b>AB</b></span>NOW BATTING</h2>
+        <h2 id="about-heading"><span class="base" aria-hidden="true"><b>C</b></span>ABOUT ME</h2>
         <p class="lede">I build streaming video apps and the services behind them. Day to day I work on Roku, Apple TV, iPhone, iPad, Android and the web, plus the Node.js and AWS backend they run on.</p>
         <p>Most of my work is live playback. I keep it working for a 24/7 channel that peaks above 170,000 concurrent viewers, and I'm usually the first one looking at the dashboards when something breaks on air. I also manage a small team of junior engineers.</p>
         <ul class="links" aria-label="Profiles">
@@ -286,8 +293,10 @@
         <ul class="bullets">
           <li>Helped more than 100 financial-advisor staff a week with internal software, remote access and phone systems.</li>
         </ul>
+      </section>
 
-        <h3>Education and certifications</h3>
+      <section id="education" class="panel" aria-labelledby="education-heading">
+        <h2 id="education-heading"><span class="base" aria-hidden="true"><b>SS</b></span>EDUCATION</h2>
         <ul class="bullets">
           <li>B.S. Computer Science, minor in Mathematics, 2020</li>
           <li>AWS Certified Solutions Architect – Associate</li>

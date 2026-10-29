@@ -154,7 +154,7 @@ header.site nav a:hover { color: var(--yellow); }
 .spot:hover .tag-text { fill: #0b0b0b; }
 
 /* Hovering or focusing a lineup row lights up its spot on the field. */
-.park-grid:has(.lineup a[data-pos="home"]:is(:hover, :focus-visible)) .spot-home .ring,
+.park-grid:has(.lineup a[data-pos="c"]:is(:hover, :focus-visible)) .spot-c .ring,
 .park-grid:has(.lineup a[data-pos="1b"]:is(:hover, :focus-visible)) .spot-1b .ring,
 .park-grid:has(.lineup a[data-pos="2b"]:is(:hover, :focus-visible)) .spot-2b .ring,
 .park-grid:has(.lineup a[data-pos="3b"]:is(:hover, :focus-visible)) .spot-3b .ring,
@@ -162,8 +162,8 @@ header.site nav a:hover { color: var(--yellow); }
 .park-grid:has(.lineup a[data-pos="lf"]:is(:hover, :focus-visible)) .spot-lf .ring,
 .park-grid:has(.lineup a[data-pos="cf"]:is(:hover, :focus-visible)) .spot-cf .ring,
 .park-grid:has(.lineup a[data-pos="rf"]:is(:hover, :focus-visible)) .spot-rf .ring,
-.park-grid:has(.lineup a[data-pos="ump"]:is(:hover, :focus-visible)) .spot-ump .ring { opacity: 1; }
-.park-grid:has(.lineup a[data-pos="home"]:is(:hover, :focus-visible)) .spot-home .tag-bg,
+.park-grid:has(.lineup a[data-pos="ss"]:is(:hover, :focus-visible)) .spot-ss .ring { opacity: 1; }
+.park-grid:has(.lineup a[data-pos="c"]:is(:hover, :focus-visible)) .spot-c .tag-bg,
 .park-grid:has(.lineup a[data-pos="1b"]:is(:hover, :focus-visible)) .spot-1b .tag-bg,
 .park-grid:has(.lineup a[data-pos="2b"]:is(:hover, :focus-visible)) .spot-2b .tag-bg,
 .park-grid:has(.lineup a[data-pos="3b"]:is(:hover, :focus-visible)) .spot-3b .tag-bg,
@@ -171,8 +171,8 @@ header.site nav a:hover { color: var(--yellow); }
 .park-grid:has(.lineup a[data-pos="lf"]:is(:hover, :focus-visible)) .spot-lf .tag-bg,
 .park-grid:has(.lineup a[data-pos="cf"]:is(:hover, :focus-visible)) .spot-cf .tag-bg,
 .park-grid:has(.lineup a[data-pos="rf"]:is(:hover, :focus-visible)) .spot-rf .tag-bg,
-.park-grid:has(.lineup a[data-pos="ump"]:is(:hover, :focus-visible)) .spot-ump .tag-bg { fill: var(--yellow); }
-.park-grid:has(.lineup a[data-pos="home"]:is(:hover, :focus-visible)) .spot-home .tag-text,
+.park-grid:has(.lineup a[data-pos="ss"]:is(:hover, :focus-visible)) .spot-ss .tag-bg { fill: var(--yellow); }
+.park-grid:has(.lineup a[data-pos="c"]:is(:hover, :focus-visible)) .spot-c .tag-text,
 .park-grid:has(.lineup a[data-pos="1b"]:is(:hover, :focus-visible)) .spot-1b .tag-text,
 .park-grid:has(.lineup a[data-pos="2b"]:is(:hover, :focus-visible)) .spot-2b .tag-text,
 .park-grid:has(.lineup a[data-pos="3b"]:is(:hover, :focus-visible)) .spot-3b .tag-text,
@@ -180,7 +180,7 @@ header.site nav a:hover { color: var(--yellow); }
 .park-grid:has(.lineup a[data-pos="lf"]:is(:hover, :focus-visible)) .spot-lf .tag-text,
 .park-grid:has(.lineup a[data-pos="cf"]:is(:hover, :focus-visible)) .spot-cf .tag-text,
 .park-grid:has(.lineup a[data-pos="rf"]:is(:hover, :focus-visible)) .spot-rf .tag-text,
-.park-grid:has(.lineup a[data-pos="ump"]:is(:hover, :focus-visible)) .spot-ump .tag-text { fill: #0b0b0b; }
+.park-grid:has(.lineup a[data-pos="ss"]:is(:hover, :focus-visible)) .spot-ss .tag-text { fill: #0b0b0b; }
 
 .pitch { animation: pitch 1.6s steps(12) 0.6s 2 both; }
 @keyframes pitch {
