@@ -77,7 +77,7 @@
       label: '3B · SKILLS', title: 'GROUNDER TO THIRD',
       body: '<p>The third baseman reads the scouting report:</p>'
         + '<ul class="bullets"><li>Kotlin, Java, Swift, TypeScript, Python and BrightScript</li>'
-        + '<li>Live and on-demand video players, Roku SceneGraph and closed captions</li>'
+        + '<li>Live and on-demand video players, DRM, Roku SceneGraph and closed captions</li>'
         + '<li>AWS, AWS CDK, Node.js and DynamoDB</li>'
         + '<li>XCTest, Rooibos, JUnit and Jest</li></ul>',
       link: ['#skills', 'SEE ALL SKILLS'],

@@ -371,6 +371,7 @@
           <li>Traced an iOS and tvOS live-channel outage to backend parameters the app silently dropped, and reworked its media requests so we avoided an emergency app-store release.</li>
           <li>Fixed a render-thread bottleneck on Roku that left a black screen of 10+ seconds when leaving live playback. It's now instant.</li>
           <li>Found a Roku memory leak and cut memory after eight page visits from 88 MB to 37 MB.</li>
+          <li>Built player-stats overlays on Roku, iOS and tvOS that show resolution, bitrate, buffer health and which DRM a stream uses.</li>
           <li>Run live-broadcast readiness for 5–20 live shows a week, testing all five apps on staging and handling first-line diagnostics on air.</li>
           <li>Cut data use on idle Apple TVs by 95% by changing how the home-screen previews play.</li>
         </ul>
@@ -504,7 +505,7 @@
         <table class="scouting">
           <tbody>
             <tr><th scope="row">LANGUAGES</th><td>Kotlin, Java, Swift, TypeScript, JavaScript, Python, BrightScript, C++</td></tr>
-            <tr><th scope="row">STREAMING AND TV</th><td>Live and on-demand video players, AVPlayer, Shaka Player, Roku SceneGraph, closed captions (CEA-608, WebVTT)</td></tr>
+            <tr><th scope="row">STREAMING AND TV</th><td>Live and on-demand video players, AVPlayer, Shaka Player, Roku SceneGraph, closed captions (CEA-608, WebVTT), DRM playback (Widevine, PlayReady, FairPlay)</td></tr>
             <tr><th scope="row">APPLE</th><td>SwiftUI, UIKit, AVFoundation, iOS, tvOS, CarPlay, XCTest, Instruments</td></tr>
             <tr><th scope="row">ANDROID</th><td>Android and Android TV, Google Cast, Hilt, Retrofit, coroutines, JUnit, Espresso</td></tr>
             <tr><th scope="row">WEB</th><td>Vue 3, Nuxt, Pinia, React, Vitest, Cypress</td></tr>
@@ -541,6 +542,6 @@
     </div>
   </dialog>
 
-  <script src="game.js?v=10" defer></script>
+  <script src="game.js?v=11" defer></script>
 </body>
 </html>
